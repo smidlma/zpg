@@ -1,6 +1,33 @@
 #include "Model.hpp"
 
-Model::Model(std::vector<ModelStruct> model) {
+void Model::transalte(float myView) {
+  
+  M *= glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, myView));
+}
+
+void Model::scale(float scale){
+  M *= glm::scale(glm::mat4(1.0f), glm::vec3(scale));
+}
+
+void Model::rotate(float angel) {
+  M *= glm::rotate(glm::mat4(1.0f), angel, glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
+void Model::setForRender() {
+  glUseProgram(shader->getShaderProgram());
+  glBindVertexArray(this->getVAO());
+  glDrawArrays(GL_TRIANGLES, 0, 3);  // mode,first,count
+  GLint idModelTransform =
+      glGetUniformLocation(shader->getShaderProgram(), "modelMatrix");
+  if (idModelTransform == -1) {
+    fprintf(stderr, "matrixModel not found \n");
+  }
+  glUniformMatrix4fv(idModelTransform, 1, GL_FALSE, &M[0][0]);
+  M = glm::mat4(1.0f);
+}
+
+Model::Model(std::vector<ModelStruct> model, Shader *shader) {
+  this->shader = shader;
   const ModelStruct b[] = {
       {{-.5f, -.5f, .5f, 1}, {1, 0, 0, 1}},
       {{-.5f, .5f, .5f, 1}, {0, 1, 0, 1}},
@@ -19,10 +46,10 @@ Model::Model(std::vector<ModelStruct> model) {
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(model.at(0)),
-                        (GLvoid*)0);
+                        (GLvoid *)0);
 
   glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(model.at(0)),
-                        (GLvoid*)(4 * sizeof(GL_FLOAT)));
+                        (GLvoid *)(4 * sizeof(GL_FLOAT)));
 }
 
 GLuint Model::getVAO() { return this->VAO; }

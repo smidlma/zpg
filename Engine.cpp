@@ -34,6 +34,13 @@ void Engine::run() {
   float ratio = width / (float)height;
   glViewport(0, 0, width, height);
 
+  // glfwSetCursorPosCallback(
+  //     window,
+  //     [](GLFWwindow *window, double mouseXPos, double mouseYPos) -> void {
+  //       Application::getInstance()->cursor_pos_callback(window, mouseXPos,
+  //                                                       mouseYPos);
+  //     });
+
   // draw
   draw();
 
@@ -44,35 +51,44 @@ void Engine::run() {
   exit(EXIT_SUCCESS);
 }
 void Engine::draw() {
+  shader = new Shader();
+
   std::vector<ModelStruct> model1 = {
       {{0.1f, 0.5f, 0.0f, 1}, {1, 0, 0, 1}},
       {{0.8f, -0.5f, 0.0f, 1}, {0, 1, 0, 1}},
       {{0.1f, -0.5f, 0.0f, 1}, {0, 0, 1, 1}},
   };
 
-  Model *model = new Model(model1);
-  Model *m2 = new Model({
-      {{-0.1f, 0.5f, 0.0f, 1}, {1, 0, 0, 1}},
-      {{-0.8f, -0.5f, 0.0f, 1}, {0, 1, 0, 1}},
-      {{-0.1f, -0.5f, 0.0f, 1}, {0, 0, 1, 1}},
-  });
-  shader = new Shader();
+  Model *model = new Model(model1, shader);
+  Model *m2 = new Model(
+      {
+          {{-0.1f, 0.5f, 0.0f, 1}, {1, 0, 0, 1}},
+          {{-0.8f, -0.5f, 0.0f, 1}, {0, 1, 0, 1}},
+          {{-0.1f, -0.5f, 0.0f, 1}, {0, 0, 1, 1}},
+      },
+      shader);
+  float angle = 0;
+  float myView = 0;
+  
+  Scene *scene = new Scene();
   while (!glfwWindowShouldClose(window)) {
     // clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glUseProgram(shader->getShaderProgram());
-    glBindVertexArray(model->getVAO());
-    // draw triangles
-    glDrawArrays(GL_TRIANGLES, 0, 3);  // mode,first,count
-    // update other events like input handling
+    model->rotate(angle);
+    model->transalte(0.1);
+    model->scale(angle / 100);
+    model->setForRender();
+    
 
-    // glUseProgram(shader->getShaderProgram());
-    glBindVertexArray(m2->getVAO());
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    m2->setForRender();
+
+    scene->render();
+
 
     glfwPollEvents();
     // put the stuff we’ve been drawing onto the display
     glfwSwapBuffers(window);
+    angle += 0.1;
   }
 }
 
