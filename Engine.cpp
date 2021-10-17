@@ -1,7 +1,7 @@
 #include "Engine.hpp"
 Engine *Engine::engine = nullptr;
 
-void Engine::run() {
+void Engine::init() {
   if (!glfwInit()) {
     fprintf(stderr, "ERROR: could not start GLFW3\n");
     exit(EXIT_FAILURE);
@@ -16,8 +16,12 @@ void Engine::run() {
   glfwMakeContextCurrent(window);
   glfwSwapInterval(1);
   // start GLEW extension handler
-  glewExperimental = GL_TRUE;
-  glewInit();
+  glewExperimental = GL_TRUE;  // Ensure it get all pointers
+  if (GLEW_OK != glewInit()) {
+    // glewInit failed, something is seriously wrong.
+    fprintf(stderr, "Error to init glew\n");
+    exit(1);  // or any handling here
+  }
 
   // get version info
   printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
@@ -33,15 +37,26 @@ void Engine::run() {
   glfwGetFramebufferSize(window, &width, &height);
   float ratio = width / (float)height;
   glViewport(0, 0, width, height);
+}
 
-  // glfwSetCursorPosCallback(
-  //     window,
-  //     [](GLFWwindow *window, double mouseXPos, double mouseYPos) -> void {
-  //       Application::getInstance()->cursor_pos_callback(window, mouseXPos,
-  //                                                       mouseYPos);
-  //     });
+void Engine::setCallbacks() {
+  glfwSetCursorPosCallback(
+      window,
+      [](GLFWwindow *window, double mouseXPos, double mouseYPos) -> void {
+        CallbackController::getInstance()->cursorPosCallback(window, mouseXPos,
+                                                             mouseYPos);
+      });
+}
 
+void Engine::run() {
+  // init libs
+  init();
+  // set callbacks
+  setCallbacks();
+  
   // draw
+  Scene *scene = new Scene();
+
   draw();
 
   glfwDestroyWindow(window);
@@ -69,8 +84,7 @@ void Engine::draw() {
       shader);
   float angle = 0;
   float myView = 0;
-  
-  Scene *scene = new Scene();
+
   while (!glfwWindowShouldClose(window)) {
     // clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -78,12 +92,10 @@ void Engine::draw() {
     model->transalte(0.1);
     model->scale(angle / 100);
     model->setForRender();
-    
 
     m2->setForRender();
 
-    scene->render();
-
+    // scene->render();
 
     glfwPollEvents();
     // put the stuff we’ve been drawing onto the display
@@ -98,6 +110,8 @@ Engine *Engine::getEngine() {
   }
   return engine;
 }
+
+Scene *Engine::getScene() { return scene; }
 
 Engine::Engine() {}
 

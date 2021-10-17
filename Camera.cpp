@@ -10,7 +10,7 @@ void Camera::adjustTarget(double mouseXPos, double mouseYPos) {
       lastY - mouseYPos;  // reversed since y-coordinates range from bottom to top
   lastX = mouseXPos;
   lastY = mouseYPos;
-  yaw
+  
 
   // printf("%f\n", r);
 

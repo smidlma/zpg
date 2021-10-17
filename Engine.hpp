@@ -15,21 +15,27 @@
 // Include the standard C++ headers
 #include <stdio.h>
 #include <stdlib.h>
-#include "Shader.hpp"
+
+#include "CallbackController.hpp"
 #include "Model.hpp"
 #include "Scene.hpp"
+#include "Shader.hpp"
 
 class Engine {
  private:
   static Engine *engine;
   GLFWwindow *window;
   Shader *shader;
+  Scene *scene;
   Engine();
   void draw();
+  void init();
+  void setCallbacks();
 
  public:
-	static Engine* getEngine();
+  static Engine *getEngine();
   ~Engine();
   void run();
+  Scene *getScene();
 };
 #endif
