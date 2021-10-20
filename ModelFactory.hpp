@@ -2,7 +2,7 @@
 #define MODELFACTORY_H
 #pragma once
 
-#include "ModelStruct.h"
+#include "ModelStruct.hpp"
 #include "TriangleModel.hpp"
 
 class ModelFactory {

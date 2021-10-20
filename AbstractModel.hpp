@@ -11,6 +11,5 @@ class AbstractModel {
 
  public:
   virtual void draw(Shader *shader, Transform *transform) = 0;
-  AbstractModel() {}
 };
 #endif

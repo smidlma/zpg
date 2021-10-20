@@ -17,15 +17,16 @@
 #include <stdlib.h>
 
 #include "CallbackController.hpp"
-#include "Model.hpp"
 #include "Scene.hpp"
 #include "Shader.hpp"
+#include "DrawableObject.hpp"
+#include "ModelFactory.hpp"
+#include "Transform.hpp"
 
 class Engine {
  private:
   static Engine *engine;
   GLFWwindow *window;
-  Shader *shader;
   Scene *scene;
   Engine();
   void draw();

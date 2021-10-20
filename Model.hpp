@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "Shader.hpp"
-#include "ModelStruct.h"
+#include "ModelStruct.hpp"
 
 
 class Model {

@@ -1,7 +1,7 @@
 #ifndef TRIANGLEMODEL_H
 #define TRIANGLEMODEL_H
 #pragma once
-#include <ModelStruct.h>
+#include <ModelStruct.hpp>
 
 #include <vector>
 

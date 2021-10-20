@@ -21,7 +21,11 @@ void Scene::updateCamera() {
   glUniformMatrix4fv(idViewMatrix, 1, GL_FALSE, &camera->getCamera()[0][0]);
 }
 
-void Scene::render() {}
+void Scene::render() {
+  for (DrawableObject *o : objects) {
+    o->draw();
+  }
+}
 
 Scene::Scene() {
   camera = new Camera(this);

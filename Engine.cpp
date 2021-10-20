@@ -53,14 +53,26 @@ void Engine::setCallbacks() {
                            window, key, scancode, action, mods);
                      });
 }
-void Engine::initScene(){
+void Engine::initScene() {
   scene = new Scene();
+  AbstractModel *model = ModelFactory::makeTriangel();
+  Transform *tr1 = new Transform();
+  Transform *tr = new Transform();
+  tr->scale(2);
+  tr->translate({0, 2, 0});
+  Shader *s = new Shader();
 
+   // for (int i = 0; i < 10; i++) {
+  scene->addObject(new DrawableObject(model, tr, s));
+  scene->addObject(new DrawableObject(model, tr1,s));
+
+  // }
 }
 
 void Engine::run() {
   // init libs
   init();
+  initScene();
 
   // set callbacks
   setCallbacks();
@@ -104,7 +116,7 @@ void Engine::draw() {
     // model->setForRender();
 
     // m2->setForRender();
-    
+
     // model->transalte(0.8);
     // model->setForRender();
 

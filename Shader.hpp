@@ -4,12 +4,14 @@
 #include <GL/glew.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "Camera.hpp"
 
 class Shader {
  private:
   GLuint shaderProgram;
 
  public:
+  void updateCamera(Camera* camera);
   const char* vertex_shader =
       "#version 330\n"
       "layout(location=0) in vec4 vp;"
