@@ -31,6 +31,7 @@ class Engine {
   void draw();
   void init();
   void setCallbacks();
+  void initScene();
 
  public:
   static Engine *getEngine();

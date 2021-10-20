@@ -6,10 +6,37 @@ void CallbackController::registerCamera(Camera* camera) {
   cameras.push_back(camera);
 }
 
+void CallbackController::keyCallback(GLFWwindow* window, int key, int scancode,
+                                     int action, int mods) {
+  if (key == GLFW_KEY_UP) {
+    for (auto c : cameras) {
+      c->toFront();
+    }
+  }
+
+  if (key == GLFW_KEY_DOWN) {
+    for (auto c : cameras) {
+      c->toBack();
+    }
+  }
+
+  if (key == GLFW_KEY_LEFT) {
+    for (auto c : cameras) {
+      c->toLeft();
+    }
+  }
+
+  if (key == GLFW_KEY_RIGHT) {
+    for (auto c : cameras) {
+      c->toRight();
+    }
+  }
+}
+
 void CallbackController::cursorPosCallback(GLFWwindow* window, double mouseXPos,
                                            double mouseYPos) {
   for (auto c : cameras) {
-    c->adjustTarget(mouseXPos, mouseYPos);
+    c->adjustTarget({mouseXPos, mouseYPos});
   }
 }
 

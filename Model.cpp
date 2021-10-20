@@ -1,11 +1,10 @@
 #include "Model.hpp"
 
 void Model::transalte(float myView) {
-  
   M *= glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, myView));
 }
 
-void Model::scale(float scale){
+void Model::scale(float scale) {
   M *= glm::scale(glm::mat4(1.0f), glm::vec3(scale));
 }
 
@@ -16,7 +15,7 @@ void Model::rotate(float angel) {
 void Model::setForRender() {
   glUseProgram(shader->getShaderProgram());
   glBindVertexArray(this->getVAO());
-  glDrawArrays(GL_TRIANGLES, 0, 3);  // mode,first,count
+  glDrawArrays(GL_TRIANGLES, 0, 6);  // mode,first,count
   GLint idModelTransform =
       glGetUniformLocation(shader->getShaderProgram(), "modelMatrix");
   if (idModelTransform == -1) {
@@ -33,6 +32,7 @@ Model::Model(std::vector<ModelStruct> model, Shader *shader) {
       {{-.5f, .5f, .5f, 1}, {0, 1, 0, 1}},
       {{.5f, .5f, .5f, 1}, {0, 0, 1, 1}},
   };
+
   GLuint VBO = 0;
   glGenBuffers(1, &VBO);  // generate the VBO
   glBindBuffer(GL_ARRAY_BUFFER, VBO);

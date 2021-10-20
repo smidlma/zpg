@@ -8,11 +8,8 @@
 #include <vector>
 
 #include "Shader.hpp"
+#include "ModelStruct.h"
 
-struct ModelStruct {
-  float pos[4];
-  float rgba[4];
-};
 
 class Model {
  private:
