@@ -4,13 +4,13 @@
 
 #include <vector>
 
-// #include "Object.hpp"
-#include "Shader.hpp"
 #include "CallbackController.hpp"
+#include "DrawableObject.hpp"
+#include "Shader.hpp"
 class Camera;
 class Scene {
  private:
-  // std::vector<Object> objects;
+  std::vector<DrawableObject *> objects;
   Camera *camera;
 
  public:
@@ -18,5 +18,6 @@ class Scene {
   ~Scene();
   void render();
   void updateCamera();
+  void addObject(DrawableObject *o);
 };
 #endif
