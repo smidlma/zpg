@@ -11,7 +11,7 @@ class Camera;
 class Scene {
  private:
   std::vector<DrawableObject *> objects;
-  Camera *camera;
+  // Camera *camera;
 
  public:
   Scene();

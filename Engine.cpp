@@ -61,6 +61,10 @@ void Engine::initScene() {
   tr->scale(2);
   tr->translate({0, 2, 0});
   Shader *s = new Shader();
+  Camera *camera = new Camera();
+  camera->registerShader(s);
+  CallbackController::getInstance()->registerCamera(camera);
+
 
    // for (int i = 0; i < 10; i++) {
   scene->addObject(new DrawableObject(model, tr, s));
@@ -86,46 +90,15 @@ void Engine::run() {
   exit(EXIT_SUCCESS);
 }
 void Engine::draw() {
-  // shader = new Shader();
-
-  // std::vector<ModelStruct> model1 = {
-
-  //     {{0.1f, 0.5f, 0.0f, 1}, {1, 0, 0, 1}},
-  //     {{0.8f, 0.5f, 0.0f, 1}, {0, 1, 0, 1}},
-  //     {{0.1f, 1.0f, 0.0f, 1}, {0, 0, 1, 1}},
-  // };
-
-  // Model *model = new Model(model1, shader);
-  // Model *m2 = new Model(
-  //     {
-  //         {{0.1f, 0.5f, 0.0f, 1}, {1, 0, 0, 1}},
-  //         {{0.8f, -0.5f, 0.0f, 1}, {0, 1, 0, 1}},
-  //         {{0.1f, -0.5f, 0.0f, 1}, {0, 0, 1, 1}},
-  //         {{-0.1f, 0.5f, 0.5f, 1}, {1, 0, 0, 1}},
-  //         {{-0.8f, -0.5f, 0.5f, 1}, {0, 1, 0, 1}},
-  //         {{-0.1f, -0.5f, 0.5f, 1}, {0, 0, 1, 1}},
-  //     },
-  //     shader);
-  // float angle = 0;
-  // float myView = 0;
   while (!glfwWindowShouldClose(window)) {
     // clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // model->rotate(angle);
-    // model->scale(angle / 100);
-    // model->setForRender();
-
-    // m2->setForRender();
-
-    // model->transalte(0.8);
-    // model->setForRender();
 
     scene->render();
 
     glfwPollEvents();
     // put the stuff we’ve been drawing onto the display
     glfwSwapBuffers(window);
-    // angle += 0.1;
   }
 }
 

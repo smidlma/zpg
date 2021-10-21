@@ -1,58 +1,61 @@
 #include "Camera.hpp"
 
-#include "Scene.hpp"
+#include "Shader.hpp"
+void Camera::notifyShaders() {
+  for (auto *s : shaders) {
+    s->updateCamera(this);
+  }
+}
 
 void Camera::toFront() {
   eye += (glm::normalize(target) * MOVEMENT_SPEED);
-  scene->updateCamera();
+  notifyShaders();
 }
 void Camera::toLeft() {
   eye += (glm::normalize(glm::cross(target, up)) * -MOVEMENT_SPEED);
-  scene->updateCamera();
+  notifyShaders();
 }
 void Camera::toRight() {
   eye += (glm::normalize(glm::cross(target, up)) * MOVEMENT_SPEED);
-  scene->updateCamera();
+  notifyShaders();
 }
 void Camera::toBack() {
   eye += (-MOVEMENT_SPEED * glm::normalize(target));
-  scene->updateCamera();
+  notifyShaders();
 }
 
 void Camera::adjustTarget(glm::vec2 newMousePos) {
-  // printf("x=[%f], y=[%f] \n", mouseXPos, mouseYPos);
   float sensitivity = 0.01;
   float deltaX = oldMousePos.x - newMousePos.x;
   float deltaY = oldMousePos.y - newMousePos.y;
-  // printf("deltaX= %f \n", deltaX);
-  // printf("deltaY= %f \n", deltaY);
 
   // Horizontal mouse movement changes Phi, and vertical movement changes Theta
   if (deltaX > 0) {
-    phi += sensitivity;
+    phi += MOUSE_SENSITIVITY;
   } else if (deltaX < 0) {
-    phi -= sensitivity;
+    phi -= MOUSE_SENSITIVITY;
   }
 
   if (deltaY > 0) {
-    theta += sensitivity;
+    theta += MOUSE_SENSITIVITY;
   } else if (deltaY < 0) {
-    theta -= sensitivity;
+    theta -= MOUSE_SENSITIVITY;
   }
 
-  // printf("theta %f, phi %f \n", theta, phi);
   oldMousePos = newMousePos;
   target.x = radius * sin(theta) * cos(phi);
   target.z = radius * sin(theta) * sin(phi);
   target.y = radius * cos(theta);
 
-  scene->updateCamera();
+  notifyShaders();
 }
-glm::mat4 Camera::getCamera() { return glm::lookAt(eye, eye + target, up); }
+glm::mat4 Camera::getCameraLookAt() {
+  return glm::lookAt(eye, eye + target, up);
+}
 
-Camera::Camera(Scene *scene) {
-  shader = new Shader();
-  this->scene = scene;
+void Camera::registerShader(Shader *shader) { shaders.push_back(shader); }
+
+Camera::Camera() {
   projectionMatrix =
       glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
   viewMatrix = glm::lookAt(

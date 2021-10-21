@@ -4,8 +4,8 @@
 #include <GL/glew.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "Camera.hpp"
 
+class Camera;
 class Shader {
  private:
   GLuint shaderProgram;

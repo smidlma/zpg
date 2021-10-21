@@ -8,25 +8,25 @@ void CallbackController::registerCamera(Camera* camera) {
 
 void CallbackController::keyCallback(GLFWwindow* window, int key, int scancode,
                                      int action, int mods) {
-  if (key == GLFW_KEY_UP) {
+  if (key == GLFW_KEY_W) {
     for (auto c : cameras) {
       c->toFront();
     }
   }
 
-  if (key == GLFW_KEY_DOWN) {
+  if (key == GLFW_KEY_S) {
     for (auto c : cameras) {
       c->toBack();
     }
   }
 
-  if (key == GLFW_KEY_LEFT) {
+  if (key == GLFW_KEY_A) {
     for (auto c : cameras) {
       c->toLeft();
     }
   }
 
-  if (key == GLFW_KEY_RIGHT) {
+  if (key == GLFW_KEY_D) {
     for (auto c : cameras) {
       c->toRight();
     }

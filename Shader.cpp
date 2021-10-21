@@ -1,6 +1,6 @@
 #include "Shader.hpp"
+#include "Camera.hpp"
 void Shader::updateCamera(Camera* camera) {
-  // printf("Update \n");
   GLint idProjectionMatrix =
       glGetUniformLocation(shaderProgram, "projectionMatrix");
   if (idProjectionMatrix == -1) {
@@ -13,7 +13,7 @@ void Shader::updateCamera(Camera* camera) {
   if (idViewMatrix == -1) {
     fprintf(stderr, "ViewMatrix not found \n");
   }
-  glUniformMatrix4fv(idViewMatrix, 1, GL_FALSE, &camera->getCamera()[0][0]);
+  glUniformMatrix4fv(idViewMatrix, 1, GL_FALSE, &camera->getCameraLookAt()[0][0]);
 }
 
 GLuint Shader::getShaderProgram() { return this->shaderProgram; }
