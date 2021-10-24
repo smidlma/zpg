@@ -9,14 +9,17 @@ void Transform::scale(float scale) {
 }
 
 void Transform::rotate(float angel) {
+  lastAngle = angel;
   modelMatrix *=
-      glm::rotate(glm::mat4(1.0f), angel, glm::vec3(0.0f, 1.0f, 0.0f));
+      glm::rotate(glm::mat4(1.0f), (float) (glfwGetTime() * 0.1f) , glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 glm::mat4 Transform::getModelMatrix(){
     return modelMatrix;
 }
-
+void Transform::reset(){
+  // modelMatrix = glm::mat4(1.0f);
+}
 Transform::Transform() {}
 
 Transform::~Transform() {}

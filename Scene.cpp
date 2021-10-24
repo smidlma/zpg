@@ -6,6 +6,7 @@ void Scene::addObject(DrawableObject *o) { objects.push_back(o); }
 void Scene::render() {
   for (DrawableObject *o : objects) {
     o->draw();
+    // o->getTransform()->rotate(0.1f);
   }
 }
 

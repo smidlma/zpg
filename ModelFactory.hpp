@@ -4,6 +4,8 @@
 
 #include "ModelStruct.hpp"
 #include "TriangleModel.hpp"
+#include "models/SuziModel.hpp"
+
 
 class ModelFactory {
  private:
@@ -21,6 +23,11 @@ class ModelFactory {
 
     return new TriangleModel(data);
   }
+  static SuziModel *makeSuzi(){
+    const float as[] = {1.0f,1.0f};
+    return new SuziModel(as);
+  }
+
   ~ModelFactory();
 };
 #endif

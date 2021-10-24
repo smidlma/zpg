@@ -37,6 +37,8 @@ void Engine::init() {
   glfwGetFramebufferSize(window, &width, &height);
   float ratio = width / (float)height;
   glViewport(0, 0, width, height);
+
+  glEnable(GL_DEPTH_TEST);
 }
 
 void Engine::setCallbacks() {
@@ -55,22 +57,21 @@ void Engine::setCallbacks() {
 }
 void Engine::initScene() {
   scene = new Scene();
-  AbstractModel *model = ModelFactory::makeTriangel();
+  AbstractModel *model = ModelFactory::makeSuzi();
   Transform *tr1 = new Transform();
   Transform *tr = new Transform();
   tr->scale(2);
   tr->translate({0, 2, 0});
   Shader *s = new Shader();
   Camera *camera = new Camera();
-  camera->registerShader(s);
   CallbackController::getInstance()->registerCamera(camera);
+  Shader *loadedS = new Shader() ;
+  loadedS->loadShader("shaders/lambertVertex.txt", "shaders/lambertFragment.txt");
+  camera->registerShader(loadedS);
 
+  scene->addObject(new DrawableObject(model, tr, loadedS));
+  scene->addObject(new DrawableObject(model, tr1,loadedS));
 
-   // for (int i = 0; i < 10; i++) {
-  scene->addObject(new DrawableObject(model, tr, s));
-  scene->addObject(new DrawableObject(model, tr1,s));
-
-  // }
 }
 
 void Engine::run() {

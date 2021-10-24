@@ -8,7 +8,8 @@ void CallbackController::registerCamera(Camera* camera) {
 
 void CallbackController::keyCallback(GLFWwindow* window, int key, int scancode,
                                      int action, int mods) {
-  if (key == GLFW_KEY_W) {
+
+  if (key == GLFW_KEY_W && action== GLFW_REPEAT) {
     for (auto c : cameras) {
       c->toFront();
     }
@@ -35,6 +36,7 @@ void CallbackController::keyCallback(GLFWwindow* window, int key, int scancode,
 
 void CallbackController::cursorPosCallback(GLFWwindow* window, double mouseXPos,
                                            double mouseYPos) {
+  glfwSetCursorPos(window, 800/2, 600/2);
   for (auto c : cameras) {
     c->adjustTarget({mouseXPos, mouseYPos});
   }

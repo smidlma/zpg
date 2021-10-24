@@ -1,10 +1,12 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 #pragma once
+#include <GL/glew.h>
 
-// Include GLM
+#include <GLFW/glfw3.h>
 #include <stdio.h>
 
+// Include GLM
 #include <glm/gtc/matrix_transform.hpp>  // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/mat4x4.hpp>  // glm::mat4
 #include <glm/vec3.hpp>    // glm::vec3
@@ -25,6 +27,16 @@ class Camera {
   float radius = 1;
   const float MOVEMENT_SPEED = 0.5f;
   const float MOUSE_SENSITIVITY = 0.02f;
+
+  float horizontalAngle = 3.14f;
+  // vertical angle : 0, look at the horizon
+  float verticalAngle = 0.0f;
+  // Initial Field of View
+  float initialFoV = 45.0f;
+
+  float speed = 3.0f;  // 3 units / second
+  float mouseSpeed = 0.005f;
+  float lastTime = 0;
 
  public:
   glm::mat4 viewMatrix;

@@ -14,5 +14,8 @@ class DrawableObject {
   DrawableObject(AbstractModel *model, Transform *transform, Shader *shader);
   ~DrawableObject();
   void draw();
+  Transform *getTransform(){
+    return transform;
+  }
 };
 #endif
