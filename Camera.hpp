@@ -17,7 +17,6 @@
 class Shader;
 class Camera {
  private:
-  glm::vec3 eye = {10, 10, 10};
   glm::vec3 target = {0, 0, 0};
   glm::vec3 up = {0, 1, 0};
   glm::vec2 oldMousePos = {400, 300};
@@ -28,17 +27,12 @@ class Camera {
   const float MOVEMENT_SPEED = 0.5f;
   const float MOUSE_SENSITIVITY = 0.02f;
 
-  float horizontalAngle = 3.14f;
-  // vertical angle : 0, look at the horizon
-  float verticalAngle = 0.0f;
-  // Initial Field of View
-  float initialFoV = 45.0f;
-
   float speed = 3.0f;  // 3 units / second
   float mouseSpeed = 0.005f;
   float lastTime = 0;
 
  public:
+  glm::vec3 eye = {10, 10, 10};
   glm::mat4 viewMatrix;
   glm::mat4 projectionMatrix;
   Camera();

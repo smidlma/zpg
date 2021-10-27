@@ -8,8 +8,6 @@
 #include "ShaderLoader.h"
 class Camera;
 class Shader : public ShaderLoader {
- private:
-  GLuint shaderProgram;
 
  public:
   void updateCamera(Camera* camera);

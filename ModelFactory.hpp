@@ -2,9 +2,10 @@
 #define MODELFACTORY_H
 #pragma once
 
-#include "ModelStruct.hpp"
-#include "TriangleModel.hpp"
+#include "models/ModelStruct.hpp"
+#include "models/TriangleModel.hpp"
 #include "models/SuziModel.hpp"
+#include "models/SphereModel.hpp"
 
 
 class ModelFactory {
@@ -26,6 +27,9 @@ class ModelFactory {
   static SuziModel *makeSuzi(){
     const float as[] = {1.0f,1.0f};
     return new SuziModel(as);
+  }
+  static SphereModel *makeSphere(){
+    return new SphereModel();
   }
 
   ~ModelFactory();

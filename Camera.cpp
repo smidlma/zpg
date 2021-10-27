@@ -34,24 +34,25 @@ void Camera::adjustTarget(glm::vec2 newMousePos) {
   //     glm::vec3(cos(verticalAngle) * sin(horizontalAngle),
   //     sin(verticalAngle),
   //               cos(verticalAngle) * cos(horizontalAngle));
-  float deltaX = 800/2 - newMousePos.x;
-  float deltaY = 600/2 - newMousePos.y;
+
+  float deltaX = oldMousePos.x - newMousePos.x;
+  float deltaY = oldMousePos.y - newMousePos.y;
+  oldMousePos = newMousePos;
 
   // Horizontal mouse movement changes Phi, and vertical movement changes Theta
 
   if (deltaX > 0) {
-    phi += MOUSE_SENSITIVITY;
-  } else if (deltaX < 0) {
     phi -= MOUSE_SENSITIVITY;
+  } else if (deltaX < 0) {
+    phi += MOUSE_SENSITIVITY;
   }
 
   if (deltaY > 0) {
-    theta += MOUSE_SENSITIVITY;
-  } else if (deltaY < 0) {
     theta -= MOUSE_SENSITIVITY;
+  } else if (deltaY < 0) {
+    theta += MOUSE_SENSITIVITY;
   }
 
-  oldMousePos = newMousePos;
   target.x = radius * sin(theta) * cos(phi);
   target.z = radius * sin(theta) * sin(phi);
   target.y = radius * cos(theta);

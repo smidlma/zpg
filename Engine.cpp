@@ -59,18 +59,34 @@ void Engine::initScene() {
   scene = new Scene();
   AbstractModel *model = ModelFactory::makeSuzi();
   Transform *tr1 = new Transform();
-  Transform *tr = new Transform();
-  tr->scale(2);
-  tr->translate({0, 2, 0});
-  Shader *s = new Shader();
+  // Transform *tr = new Transform();
+  // tr->scale(2);
+  // tr->translate({0, 2, 0});
+  // Shader *s = new Shader();
   Camera *camera = new Camera();
   CallbackController::getInstance()->registerCamera(camera);
-  Shader *loadedS = new Shader() ;
-  loadedS->loadShader("shaders/lambertVertex.txt", "shaders/lambertFragment.txt");
+  Shader *loadedS = new Shader();
+  loadedS->loadShader("shaders/lambertVertex.txt",
+                      "shaders/lambertFragment.txt");
   camera->registerShader(loadedS);
+  AbstractModel *sphere = ModelFactory::makeSphere();
 
-  scene->addObject(new DrawableObject(model, tr, loadedS));
-  scene->addObject(new DrawableObject(model, tr1,loadedS));
+  // scene->addObject(new DrawableObject(model, tr, loadedS));
+  // scene->addObject(new DrawableObject(model, tr1,loadedS));
+  Transform *tr2 = new Transform();
+  Transform *tr3 = new Transform();
+  Transform *tr4 = new Transform();
+  // tr1->translate(glm::vec3(0.0f, 5.0f, 3.0f));
+  // tr1->translate(glm::vec3(0.0f, 5.0f, -3.0f));
+ 
+  tr2->translate(glm::vec3(-3.0f, 5.0f, 0.0f));
+  scene->addObject(new DrawableObject(model, tr2, loadedS));
+  // scene->addObject(new DrawableObject(sphere, tr2, loadedS));
+
+
+  // scene->addObject(new DrawableObject(sphere, tr2, loadedS));
+  // scene->addObject(new DrawableObject(sphere, tr3, loadedS));
+  // scene->addObject(new DrawableObject(sphere, tr4, loadedS));
 
 }
 
@@ -95,7 +111,8 @@ void Engine::draw() {
     // clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    scene->render();
+    Renderer::renderScene(scene);
+    // scene->render();
 
     glfwPollEvents();
     // put the stuff we’ve been drawing onto the display

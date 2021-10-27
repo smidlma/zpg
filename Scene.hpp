@@ -10,14 +10,15 @@
 class Camera;
 class Scene {
  private:
-  std::vector<DrawableObject *> objects;
   // Camera *camera;
 
  public:
+  std::vector<DrawableObject *> objects;
   Scene();
   ~Scene();
-  void render();
   void updateCamera();
   void addObject(DrawableObject *o);
+  
+  
 };
 #endif

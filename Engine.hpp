@@ -22,6 +22,7 @@
 #include "DrawableObject.hpp"
 #include "ModelFactory.hpp"
 #include "Transform.hpp"
+#include "Renderer.hpp"
 
 class Engine {
  private:

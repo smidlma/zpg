@@ -16,6 +16,10 @@ void Shader::updateCamera(Camera* camera) {
     exit(1);
   }
   glUniformMatrix4fv(idViewMatrix, 1, GL_FALSE, &camera->getCameraLookAt()[0][0]);
+
+  glUniform3fv(glGetUniformLocation(shaderProgramID, "viewPos"), 1, &camera->eye[0]); 
+
+
 }
 
 GLuint Shader::getShaderProgram() { return this->shaderProgramID; }
