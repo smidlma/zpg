@@ -3,10 +3,11 @@
 #pragma once
 
 #include "models/ModelStruct.hpp"
-#include "models/TriangleModel.hpp"
-#include "models/SuziModel.hpp"
-#include "models/SphereModel.hpp"
 #include "models/PlainModel.hpp"
+#include "models/SphereModel.hpp"
+#include "models/SuziModel.hpp"
+#include "models/TriangleModel.hpp"
+#include "models/TreeModel.hpp"
 
 class ModelFactory {
  private:
@@ -24,16 +25,11 @@ class ModelFactory {
 
     return new TriangleModel(data);
   }
-  static SuziModel *makeSuzi(){
-    const float as[] = {1.0f,1.0f};
-    return new SuziModel(as);
-  }
-  static SphereModel *makeSphere(){
-    return new SphereModel();
-  }
-  static PlainModel *makePlain(){
-    return new PlainModel();
-  }
+  static SuziModel *makeSuzi() { return new SuziModel(); }
+  static SphereModel *makeSphere() { return new SphereModel(); }
+  static PlainModel *makePlain() { return new PlainModel(); }
+  static TreeModel *makeTree() { return new TreeModel(); }
+
 
   ~ModelFactory();
 };

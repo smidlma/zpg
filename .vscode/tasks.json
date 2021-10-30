@@ -1,49 +1,48 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "cppbuild",
-			"label": "C/C++: g++.exe build active file",
-			"command": "C:\\msys64\\mingw64\\bin\\g++.exe",
-			"args": [
-				"-g",
-				"main.cpp",
-				"Engine.cpp",
-				"Shader.cpp",
-				"Scene.cpp",
-				"Camera.cpp",
-				"DrawableObject.cpp",
-				"ModelFactory.cpp",
-				"Transform.cpp",
-				"models/TriangleModel.cpp",
-				"CallbackController.cpp",
-				"models/SuziModel.cpp",
-				"models/SphereModel.cpp",
-				"ShaderLoader.cpp",
-				"Renderer.cpp",
-				"SceneManager.cpp",
-				"models/PlainModel.cpp",
-				"-o",
-				"main.exe",
-				// "-I../libs/glm",
-				 "-I.",
-				 "-Imodels/",
-				"-lopengl32",
-				"-lglfw3",
-				"-lgdi32",
-				"-lglew32"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"detail": "compiler: C:\\msys64\\mingw64\\bin\\g++.exe"
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "C/C++: g++.exe build active file",
+      "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
+      "args": [
+        "-g",
+        "main.cpp",
+        "Engine.cpp",
+        "Shader.cpp",
+        "Scene.cpp",
+        "Camera.cpp",
+        "DrawableObject.cpp",
+        "ModelFactory.cpp",
+        "Transform.cpp",
+        "CallbackController.cpp",
+        "models/TriangleModel.cpp",
+        "models/SuziModel.cpp",
+        "models/SphereModel.cpp",
+        "models/PlainModel.cpp",
+        "models/TreeModel.cpp",
+        "ShaderLoader.cpp",
+        "Renderer.cpp",
+        "SceneManager.cpp",
+        "-o",
+        "main.exe",
+        // "-I../libs/glm",
+        "-I.",
+        "-Imodels/",
+        "-lopengl32",
+        "-lglfw3",
+        "-lgdi32",
+        "-lglew32"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "compiler: C:\\msys64\\mingw64\\bin\\g++.exe"
+    }
+  ]
 }

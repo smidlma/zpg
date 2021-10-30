@@ -37,15 +37,6 @@ void Camera::toBack() {
 }
 
 void Camera::adjustTarget(glm::vec2 newMousePos) {
-  // double currentTime = glfwGetTime();
-  // float deltaTime = float(currentTime - lastTime);
-  // lastTime = currentTime;
-  // horizontalAngle += mouseSpeed * deltaTime * float(800 / 2 - newMousePos.x);
-  // verticalAngle += mouseSpeed * deltaTime * float(600 / 2 - newMousePos.y);
-  // target =
-  //     glm::vec3(cos(verticalAngle) * sin(horizontalAngle),
-  //     sin(verticalAngle),
-  //               cos(verticalAngle) * cos(horizontalAngle));
 
   float deltaX = oldMousePos.x - newMousePos.x;
   float deltaY = oldMousePos.y - newMousePos.y;

@@ -40,16 +40,18 @@ void CallbackController::keyCallback(GLFWwindow* window, int key, int scancode,
 }
 void CallbackController::windowSizeChangeCallback(GLFWwindow* window, int width,
                                                   int height) {
-  for(auto c : cameras){
+  for (auto c : cameras) {
     c->resize(width, height);
   }
   glViewport(0, 0, width, height);
 }
 void CallbackController::cursorPosCallback(GLFWwindow* window, double mouseXPos,
                                            double mouseYPos) {
-  // setmousebuttoncallback
-  for (auto c : cameras) {
-    c->adjustTarget({mouseXPos, mouseYPos});
+  int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
+  if (state == GLFW_PRESS) {
+    for (auto c : cameras) {
+      c->adjustTarget({mouseXPos, mouseYPos});
+    }
   }
 }
 

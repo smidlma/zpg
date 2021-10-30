@@ -62,38 +62,7 @@ void Engine::setCallbacks() {
                            window, key, scancode, action, mods);
                      });
 }
-void Engine::initScene() {
-  scene = new Scene();
-  AbstractModel *model = ModelFactory::makeSuzi();
-  Transform *tr1 = new Transform();
-  Camera *camera = new Camera();
-  CallbackController::getInstance()->registerCamera(camera);
-  Shader *loadedS = new Shader();
-  loadedS->loadShader("shaders/phongVertex.txt", "shaders/phongFragment.txt");
-  camera->registerShader(loadedS);
-  AbstractModel *sphere = ModelFactory::makeSphere();
-  Transform *tr2 = new Transform();
-  Transform *tr3 = new Transform();
-  Transform *tr4 = new Transform();
-  tr1->translate(glm::vec3(1.0f, 0.0f, 0.0f));
-  tr2->translate(glm::vec3(-1.0f, 0.0f, 0.0f));
-  tr3->translate(glm::vec3(0.0f, 0.0f, 1.0f));
-  tr4->translate(glm::vec3(0.0f, 0.0f, -1.0f));
-  tr1->scale(0.7f);
-  tr2->scale(0.3f);
-  tr3->scale(0.3f);
-  tr4->scale(0.3f);
-  AbstractModel *plain = ModelFactory::makePlain();
-  Transform *tr5 = new Transform();
-  tr5->scale(5.0f);
-  tr5->translate(glm::vec3(0.0f, -2.0f, 0.0f));
-
-  // scene->addObject(new DrawableObject(sphere, tr1, loadedS));
-  // scene->addObject(new DrawableObject(sphere, tr2, loadedS));
-  // scene->addObject(new DrawableObject(sphere, tr3, loadedS));
-  scene->addObject(new DrawableObject(sphere, tr1, loadedS));
-  scene->addObject(new DrawableObject(model, tr2, loadedS));
-}
+void Engine::initScene() { scene = SceneManager::makeForestScene(); }
 
 void Engine::run() {
   // init libs
@@ -112,13 +81,11 @@ void Engine::run() {
   exit(EXIT_SUCCESS);
 }
 void Engine::draw() {
-  Scene *s = SceneManager::makeSimpleScene();
   while (!glfwWindowShouldClose(window)) {
     // clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    Renderer::renderScene(s);
-    // scene->render();
+    Renderer::renderScene(scene);
 
     glfwPollEvents();
     // put the stuff we’ve been drawing onto the display
