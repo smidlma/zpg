@@ -1,7 +1,7 @@
 #include "Transform.hpp"
 
 void Transform::translate(glm::vec3 delta) {
-  modelMatrix *= glm::translate(glm::mat4(1.0f), delta);
+  modelMatrix *=  glm::translate(glm::mat4(1.0f), delta);
 }
 
 void Transform::scale(float scale) {
@@ -18,7 +18,7 @@ glm::mat4 Transform::getModelMatrix(){
     return modelMatrix;
 }
 void Transform::reset(){
-  // modelMatrix = glm::mat4(1.0f);
+  modelMatrix = glm::mat4(1.0f);
 }
 Transform::Transform() {}
 

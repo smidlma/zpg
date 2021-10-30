@@ -18,6 +18,11 @@ class Scene {
   ~Scene();
   void updateCamera();
   void addObject(DrawableObject *o);
+  void render(){
+    for(DrawableObject *o : objects){
+      o->draw();
+    }
+  }
   
   
 };

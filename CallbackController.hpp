@@ -25,5 +25,6 @@ class CallbackController {
   void keyCallback(GLFWwindow* window, int key, int scancode, int action,
                    int mods);
   void registerCamera(Camera* camera);
+  void windowSizeChangeCallback(GLFWwindow* window, int width, int height);
 };
 #endif

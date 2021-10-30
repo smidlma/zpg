@@ -11,7 +11,7 @@ uniform mat4 projectionMatrix;
 void main(void)
 {
 gl_Position = projectionMatrix*viewMatrix*modelMatrix*vec4(position, 1.0);
+ex_worldNormal = vec4(normalize(transpose(inverse(mat3(modelMatrix))) * normal), 1);
 ex_worldPosition = modelMatrix*vec4(position, 1.0);
-ex_worldNormal = (modelMatrix)*vec4(normal, 1.0); //normalize(transpose(inverse(mat3(modelMatrix))) * vec4(normal, 1));
 objectColor = normal;
 }

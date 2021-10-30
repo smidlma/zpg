@@ -2,7 +2,7 @@
 #define SPHEREMODEL_H
 #pragma once
 #include "AbstractModel.hpp"
-#include "models/sphere.h"
+#include "sphere.h"
 class SphereModel : public AbstractModel {
  private:
  public:

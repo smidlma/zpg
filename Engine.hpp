@@ -23,6 +23,7 @@
 #include "ModelFactory.hpp"
 #include "Transform.hpp"
 #include "Renderer.hpp"
+#include "SceneManager.hpp"
 
 class Engine {
  private:

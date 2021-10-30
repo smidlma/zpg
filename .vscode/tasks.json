@@ -21,6 +21,8 @@
 				"models/SphereModel.cpp",
 				"ShaderLoader.cpp",
 				"Renderer.cpp",
+				"SceneManager.cpp",
+				"models/PlainModel.cpp",
 				"-o",
 				"main.exe",
 				// "-I../libs/glm",

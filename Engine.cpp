@@ -42,12 +42,19 @@ void Engine::init() {
 }
 
 void Engine::setCallbacks() {
+  glfwSetWindowSizeCallback(
+      window, [](GLFWwindow *window, int width, int height) -> void {
+        CallbackController::getInstance()->windowSizeChangeCallback(
+            window, width, height);
+      });
+
   glfwSetCursorPosCallback(
       window,
       [](GLFWwindow *window, double mouseXPos, double mouseYPos) -> void {
         CallbackController::getInstance()->cursorPosCallback(window, mouseXPos,
                                                              mouseYPos);
       });
+
   glfwSetKeyCallback(window,
                      [](GLFWwindow *window, int key, int scancode, int action,
                         int mods) -> void {
@@ -59,35 +66,33 @@ void Engine::initScene() {
   scene = new Scene();
   AbstractModel *model = ModelFactory::makeSuzi();
   Transform *tr1 = new Transform();
-  // Transform *tr = new Transform();
-  // tr->scale(2);
-  // tr->translate({0, 2, 0});
-  // Shader *s = new Shader();
   Camera *camera = new Camera();
   CallbackController::getInstance()->registerCamera(camera);
   Shader *loadedS = new Shader();
-  loadedS->loadShader("shaders/lambertVertex.txt",
-                      "shaders/lambertFragment.txt");
+  loadedS->loadShader("shaders/phongVertex.txt", "shaders/phongFragment.txt");
   camera->registerShader(loadedS);
   AbstractModel *sphere = ModelFactory::makeSphere();
-
-  // scene->addObject(new DrawableObject(model, tr, loadedS));
-  // scene->addObject(new DrawableObject(model, tr1,loadedS));
   Transform *tr2 = new Transform();
   Transform *tr3 = new Transform();
   Transform *tr4 = new Transform();
-  // tr1->translate(glm::vec3(0.0f, 5.0f, 3.0f));
-  // tr1->translate(glm::vec3(0.0f, 5.0f, -3.0f));
- 
-  tr2->translate(glm::vec3(-3.0f, 5.0f, 0.0f));
-  scene->addObject(new DrawableObject(model, tr2, loadedS));
-  // scene->addObject(new DrawableObject(sphere, tr2, loadedS));
+  tr1->translate(glm::vec3(1.0f, 0.0f, 0.0f));
+  tr2->translate(glm::vec3(-1.0f, 0.0f, 0.0f));
+  tr3->translate(glm::vec3(0.0f, 0.0f, 1.0f));
+  tr4->translate(glm::vec3(0.0f, 0.0f, -1.0f));
+  tr1->scale(0.7f);
+  tr2->scale(0.3f);
+  tr3->scale(0.3f);
+  tr4->scale(0.3f);
+  AbstractModel *plain = ModelFactory::makePlain();
+  Transform *tr5 = new Transform();
+  tr5->scale(5.0f);
+  tr5->translate(glm::vec3(0.0f, -2.0f, 0.0f));
 
-
+  // scene->addObject(new DrawableObject(sphere, tr1, loadedS));
   // scene->addObject(new DrawableObject(sphere, tr2, loadedS));
   // scene->addObject(new DrawableObject(sphere, tr3, loadedS));
-  // scene->addObject(new DrawableObject(sphere, tr4, loadedS));
-
+  scene->addObject(new DrawableObject(sphere, tr1, loadedS));
+  scene->addObject(new DrawableObject(model, tr2, loadedS));
 }
 
 void Engine::run() {
@@ -107,11 +112,12 @@ void Engine::run() {
   exit(EXIT_SUCCESS);
 }
 void Engine::draw() {
+  Scene *s = SceneManager::makeSimpleScene();
   while (!glfwWindowShouldClose(window)) {
     // clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    Renderer::renderScene(scene);
+    Renderer::renderScene(s);
     // scene->render();
 
     glfwPollEvents();

@@ -1,11 +1,11 @@
-#include "SphereModel.hpp"
+#include "PlainModel.hpp"
 
-SphereModel::SphereModel() {
-  numberOfTriangles = 2880;
+PlainModel::PlainModel() {
+  numberOfTriangles = 6;
   GLuint VBO = 0;
   glGenBuffers(1, &VBO);  // generate the VBO
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(sphere), sphere, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(plain), plain, GL_STATIC_DRAW);
 
   glGenVertexArrays(1, &VAO);  // generate the VAO
   glEnableVertexAttribArray(0);
@@ -20,8 +20,8 @@ SphereModel::SphereModel() {
                         (GLvoid *)(3 * sizeof(GL_FLOAT)));
 }
 
-void SphereModel::draw(Shader *shader, Transform *transform) {
-  render(shader, transform);
-}
+PlainModel::~PlainModel() {}
 
-SphereModel::~SphereModel() {}
+void PlainModel::draw(Shader *shader, Transform *transform) {
+  render(shader, transform);
+};

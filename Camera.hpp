@@ -21,8 +21,8 @@ class Camera {
   glm::vec3 up = {0, 1, 0};
   glm::vec2 oldMousePos = {400, 300};
   std::vector<Shader *> shaders;
-  float theta = 8.55;
-  float phi = -2.39;
+  float theta = glm::radians(178.0f);
+  float phi = 0;
   float radius = 1;
   const float MOVEMENT_SPEED = 0.5f;
   const float MOUSE_SENSITIVITY = 0.02f;
@@ -30,9 +30,10 @@ class Camera {
   float speed = 3.0f;  // 3 units / second
   float mouseSpeed = 0.005f;
   float lastTime = 0;
+  void calculateSphereCord();
 
  public:
-  glm::vec3 eye = {10, 10, 10};
+  glm::vec3 eye = {0, 10, 0};
   glm::mat4 viewMatrix;
   glm::mat4 projectionMatrix;
   Camera();
@@ -45,5 +46,7 @@ class Camera {
   void toLeft();
   void toRight();
   void toBack();
+  void resetCameraPosition();
+  void resize(int width, int height);
 };
 #endif

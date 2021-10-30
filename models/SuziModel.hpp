@@ -7,7 +7,7 @@ class SuziModel : public AbstractModel {
  private:
  public:
   void draw(Shader *shader, Transform *transform) override;
-  SuziModel(const float data[]);
+  SuziModel();
   ~SuziModel();
 };
 #endif

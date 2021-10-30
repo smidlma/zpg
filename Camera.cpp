@@ -7,6 +7,18 @@ void Camera::notifyShaders() {
   }
 }
 
+void Camera::resize(int width, int height) {
+  projectionMatrix = glm::perspective(glm::radians(45.0f),
+                                      (float)width / height, 0.1f, 100.0f);
+}
+
+void Camera::resetCameraPosition() {
+  eye = {0, 10, 0};
+  theta = glm::radians(178.0f);
+  calculateSphereCord();
+  notifyShaders();
+}
+
 void Camera::toFront() {
   eye += (glm::normalize(target) * MOVEMENT_SPEED);
   notifyShaders();
@@ -47,17 +59,19 @@ void Camera::adjustTarget(glm::vec2 newMousePos) {
     phi += MOUSE_SENSITIVITY;
   }
 
-  if (deltaY > 0) {
+  if (deltaY > 0 && theta > glm::radians(1.0)) {
     theta -= MOUSE_SENSITIVITY;
-  } else if (deltaY < 0) {
+  } else if (deltaY < 0 && theta < glm::radians(179.0)) {
     theta += MOUSE_SENSITIVITY;
   }
+  calculateSphereCord();
+  notifyShaders();
+}
 
+void Camera::calculateSphereCord() {
   target.x = radius * sin(theta) * cos(phi);
   target.z = radius * sin(theta) * sin(phi);
   target.y = radius * cos(theta);
-
-  notifyShaders();
 }
 glm::mat4 Camera::getCameraLookAt() {
   return glm::lookAt(eye, eye + target, up);

@@ -1,4 +1,5 @@
 #include "Shader.hpp"
+
 #include "Camera.hpp"
 void Shader::updateCamera(Camera* camera) {
   GLint idProjectionMatrix =
@@ -15,11 +16,15 @@ void Shader::updateCamera(Camera* camera) {
     fprintf(stderr, "ViewMatrix not found \n");
     exit(1);
   }
-  glUniformMatrix4fv(idViewMatrix, 1, GL_FALSE, &camera->getCameraLookAt()[0][0]);
+  glUniformMatrix4fv(idViewMatrix, 1, GL_FALSE,
+                     &camera->getCameraLookAt()[0][0]);
 
-  glUniform3fv(glGetUniformLocation(shaderProgramID, "viewPos"), 1, &camera->eye[0]); 
-
-
+  GLint idViewPos = glGetUniformLocation(shaderProgramID, "viewPos");
+  if (idViewPos == -1) {
+    fprintf(stderr, "ViewPos not found \n");
+    exit(1);
+  }
+  glUniform3fv(idViewPos, 1, &camera->eye[0]);
 }
 
 GLuint Shader::getShaderProgram() { return this->shaderProgramID; }
@@ -43,7 +48,7 @@ Shader::Shader() {
     GLint infoLogLength;
     glGetProgramiv(shaderProgramID, GL_INFO_LOG_LENGTH, &infoLogLength);
     GLchar* strInfoLog = new GLchar[infoLogLength + 1];
-    glGetProgramInfoLog(shaderProgramID , infoLogLength, NULL, strInfoLog);
+    glGetProgramInfoLog(shaderProgramID, infoLogLength, NULL, strInfoLog);
     fprintf(stderr, "Linker failure: %s\n", strInfoLog);
     delete[] strInfoLog;
     exit(EXIT_FAILURE);

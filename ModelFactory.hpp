@@ -6,7 +6,7 @@
 #include "models/TriangleModel.hpp"
 #include "models/SuziModel.hpp"
 #include "models/SphereModel.hpp"
-
+#include "models/PlainModel.hpp"
 
 class ModelFactory {
  private:
@@ -30,6 +30,9 @@ class ModelFactory {
   }
   static SphereModel *makeSphere(){
     return new SphereModel();
+  }
+  static PlainModel *makePlain(){
+    return new PlainModel();
   }
 
   ~ModelFactory();
