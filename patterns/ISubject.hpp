@@ -1,13 +1,19 @@
 #ifndef ISUBJECT_H
 #define ISUBJECT_H
 #pragma once
+#include <list>
+#include <vector>
 
-#include "IObserver.hpp"
+class IObserver;
+class Camera;
 class ISubject {
  private:
+ protected:
+  std::list<IObserver *> observers;
+
  public:
-  virtual void registerObserver(IObserver *ob) = 0;
-  virtual void removeObserver(IObserver *ob) = 0;
-  virtual void notify() = 0;
+  void registerObserver(IObserver *ob);
+  void removeObserver(IObserver *ob);
+  void notify(Camera *camera);
 };
 #endif

@@ -1,4 +1,6 @@
-#include "Engine.hpp"
+#include <Engine.hpp>
+#include <CallbackController.hpp>
+
 Engine *Engine::engine = nullptr;
 
 void Engine::init() {
@@ -39,6 +41,9 @@ void Engine::init() {
   glViewport(0, 0, width, height);
 
   glEnable(GL_DEPTH_TEST);
+
+
+  sceneManager = new SceneManager();
 }
 
 void Engine::setCallbacks() {
@@ -62,12 +67,10 @@ void Engine::setCallbacks() {
                            window, key, scancode, action, mods);
                      });
 }
-void Engine::initScene() { scene = SceneManager::makeForestScene(); }
 
 void Engine::run() {
   // init libs
   init();
-  initScene();
 
   // set callbacks
   setCallbacks();
@@ -85,7 +88,7 @@ void Engine::draw() {
     // clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    Renderer::renderScene(scene);
+    Renderer::renderScene(sceneManager->getCurrentScene());
 
     glfwPollEvents();
     // put the stuff we’ve been drawing onto the display
@@ -99,8 +102,6 @@ Engine *Engine::getEngine() {
   }
   return engine;
 }
-
-Scene *Engine::getScene() { return scene; }
 
 Engine::Engine() {}
 

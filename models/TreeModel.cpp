@@ -1,4 +1,4 @@
-#include "TreeModel.hpp"
+#include <TreeModel.hpp>
 
 TreeModel::TreeModel() {
   numberOfTriangles = 92814;
@@ -20,7 +20,7 @@ TreeModel::TreeModel() {
                         (GLvoid *)(3 * sizeof(GL_FLOAT)));
 }
 
-void TreeModel::draw(Shader *shader, Transform *transform) {
+void TreeModel::draw(AbstractShader *shader, Transform *transform) {
   render(shader, transform);
 }
 

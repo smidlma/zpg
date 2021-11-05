@@ -9,8 +9,8 @@
 
 #include <vector>
 
-#include "Camera.hpp"
-
+#include <Camera.hpp>
+class Engine;
 class CallbackController {
  private:
   static CallbackController* callbackController;

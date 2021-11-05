@@ -1,43 +1,36 @@
-#include "Camera.hpp"
-
-#include "Shader.hpp"
-void Camera::notifyShaders() {
-  for (auto *s : shaders) {
-    s->updateCamera(this);
-  }
-}
+#include <Camera.hpp>
 
 void Camera::resize(int width, int height) {
   projectionMatrix = glm::perspective(glm::radians(45.0f),
                                       (float)width / height, 0.1f, 100.0f);
+  notify(this);
 }
 
 void Camera::resetCameraPosition() {
   eye = {0, 10, 0};
   theta = glm::radians(178.0f);
   calculateSphereCord();
-  notifyShaders();
+  notify(this);
 }
 
 void Camera::toFront() {
   eye += (glm::normalize(target) * MOVEMENT_SPEED);
-  notifyShaders();
+  notify(this);
 }
 void Camera::toLeft() {
   eye += (glm::normalize(glm::cross(target, up)) * -MOVEMENT_SPEED);
-  notifyShaders();
+  notify(this);
 }
 void Camera::toRight() {
   eye += (glm::normalize(glm::cross(target, up)) * MOVEMENT_SPEED);
-  notifyShaders();
+  notify(this);
 }
 void Camera::toBack() {
   eye += (-MOVEMENT_SPEED * glm::normalize(target));
-  notifyShaders();
+  notify(this);
 }
 
 void Camera::adjustTarget(glm::vec2 newMousePos) {
-
   float deltaX = oldMousePos.x - newMousePos.x;
   float deltaY = oldMousePos.y - newMousePos.y;
   oldMousePos = newMousePos;
@@ -56,7 +49,7 @@ void Camera::adjustTarget(glm::vec2 newMousePos) {
     theta += MOUSE_SENSITIVITY;
   }
   calculateSphereCord();
-  notifyShaders();
+  notify(this);
 }
 
 void Camera::calculateSphereCord() {
@@ -67,8 +60,6 @@ void Camera::calculateSphereCord() {
 glm::mat4 Camera::getCameraLookAt() {
   return glm::lookAt(eye, eye + target, up);
 }
-
-void Camera::registerShader(Shader *shader) { shaders.push_back(shader); }
 
 Camera::Camera() {
   projectionMatrix =

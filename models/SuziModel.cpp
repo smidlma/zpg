@@ -1,4 +1,4 @@
-#include "SuziModel.hpp"
+#include <SuziModel.hpp>
 
 SuziModel::SuziModel() {
   numberOfTriangles = 2904;
@@ -20,7 +20,7 @@ SuziModel::SuziModel() {
                         (GLvoid *)(3 * sizeof(GL_FLOAT)));
 }
 
-void SuziModel::draw(Shader *shader, Transform *transform) {
+void SuziModel::draw(AbstractShader *shader, Transform *transform) {
   render(shader, transform);
 }
 SuziModel::~SuziModel() {}

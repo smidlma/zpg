@@ -1,11 +1,11 @@
-#include "Transform.hpp"
+#include <Transform.hpp>
 
 void Transform::translate(glm::vec3 delta) {
   modelMatrix *=  glm::translate(glm::mat4(1.0f), delta);
 }
 
 void Transform::scale(float scale) {
-  modelMatrix *= glm::scale(glm::mat4(1.0f), glm::vec3(scale));
+  modelMatrix *= glm::scale(glm::mat4(1.0f), glm::vec3(scale, scale, scale));
 }
 
 void Transform::rotate(float angel) {

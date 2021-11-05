@@ -1,4 +1,4 @@
-#include "PlainModel.hpp"
+#include <PlainModel.hpp>
 
 PlainModel::PlainModel() {
   numberOfTriangles = 6;
@@ -22,6 +22,6 @@ PlainModel::PlainModel() {
 
 PlainModel::~PlainModel() {}
 
-void PlainModel::draw(Shader *shader, Transform *transform) {
+void PlainModel::draw(AbstractShader *shader, Transform *transform) {
   render(shader, transform);
 };

@@ -2,15 +2,15 @@
 #define ABSTRACTMODEL_H
 #pragma once
 
-#include "Shader.hpp"
-#include "Transform.hpp"
+#include <AbstractShader.hpp>
+#include <Transform.hpp>
 
 class AbstractModel {
  protected:
   GLuint VAO = 0;
   GLsizei numberOfTriangles = 0;
 
-  void render(Shader *shader, Transform *transform) {
+  void render(AbstractShader *shader, Transform *transform) {
     glUseProgram(shader->getShaderProgram());
     glBindVertexArray(VAO);
     GLint idModelTransform =
@@ -22,9 +22,11 @@ class AbstractModel {
     glUniformMatrix4fv(idModelTransform, 1, GL_FALSE,
                        &transform->getModelMatrix()[0][0]);
     glDrawArrays(GL_TRIANGLES, 0, numberOfTriangles);
+    glUseProgram(0);
   }
 
  public:
-  void virtual draw(Shader *shader, Transform *transform) = 0;
+  void virtual draw(AbstractShader *shader, Transform *transform) = 0;
+  AbstractModel() { printf("####################### Abstract Constructor ######################## \n"); };
 };
 #endif

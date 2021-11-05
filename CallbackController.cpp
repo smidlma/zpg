@@ -1,4 +1,5 @@
-#include "CallbackController.hpp"
+#include <CallbackController.hpp>
+#include <Engine.hpp>
 
 CallbackController* CallbackController::callbackController = nullptr;
 
@@ -36,6 +37,14 @@ void CallbackController::keyCallback(GLFWwindow* window, int key, int scancode,
     for (auto c : cameras) {
       c->resetCameraPosition();
     }
+  }
+
+  if (key == GLFW_KEY_1) {
+    Engine::getEngine()->sceneManager->setScene(0);
+  }
+
+  if (key == GLFW_KEY_2) {
+    Engine::getEngine()->sceneManager->setScene(1);
   }
 }
 void CallbackController::windowSizeChangeCallback(GLFWwindow* window, int width,

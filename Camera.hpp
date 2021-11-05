@@ -2,7 +2,6 @@
 #define CAMERA_H
 #pragma once
 #include <GL/glew.h>
-
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 
@@ -12,24 +11,19 @@
 #include <glm/vec3.hpp>    // glm::vec3
 #include <vector>
 
-#include "Shader.hpp"
+#include <ISubject.hpp>
 
-class Shader;
-class Camera {
+class Camera : public ISubject {
  private:
   glm::vec3 target = {0, 0, 0};
   glm::vec3 up = {0, 1, 0};
   glm::vec2 oldMousePos = {400, 300};
-  std::vector<Shader *> shaders;
   float theta = glm::radians(178.0f);
   float phi = 0;
   float radius = 1;
   const float MOVEMENT_SPEED = 0.5f;
   const float MOUSE_SENSITIVITY = 0.02f;
-
-  float speed = 3.0f;  // 3 units / second
-  float mouseSpeed = 0.005f;
-  float lastTime = 0;
+  
   void calculateSphereCord();
 
  public:
@@ -38,9 +32,7 @@ class Camera {
   glm::mat4 projectionMatrix;
   Camera();
   ~Camera();
-  void registerShader(Shader *shader);
   glm::mat4 getCameraLookAt();
-  void notifyShaders();
   void adjustTarget(glm::vec2 newMousePos);
   void toFront();
   void toLeft();

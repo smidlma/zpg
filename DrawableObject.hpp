@@ -1,17 +1,16 @@
 #ifndef DRAWABLEOBJECT_H
 #define DRAWABLEOBJECT_H
 #pragma once
-#include "AbstractModel.hpp"
-#include "Shader.hpp"
-#include "Transform.hpp"
+#include <AbstractModel.hpp>
+#include <Transform.hpp>
 class DrawableObject {
  private:
   AbstractModel *model;
   Transform *transform;
-  Shader *shader;
+  AbstractShader *shader;
 
  public:
-  DrawableObject(AbstractModel *model, Transform *transform, Shader *shader);
+  DrawableObject(AbstractModel *model, Transform *transform, AbstractShader *shader);
   ~DrawableObject();
   void draw();
   Transform *getTransform(){

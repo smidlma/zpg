@@ -16,30 +16,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "CallbackController.hpp"
-#include "Scene.hpp"
-#include "Shader.hpp"
-#include "DrawableObject.hpp"
-#include "ModelFactory.hpp"
-#include "Transform.hpp"
-#include "Renderer.hpp"
-#include "SceneManager.hpp"
-
+#include <Renderer.hpp>
+#include <SceneManager.hpp>
+class CallbackController;
 class Engine {
  private:
   static Engine *engine;
   GLFWwindow *window;
-  Scene *scene;
   Engine();
   void draw();
   void init();
   void setCallbacks();
-  void initScene();
 
  public:
+  SceneManager *sceneManager = nullptr;
   static Engine *getEngine();
   ~Engine();
   void run();
-  Scene *getScene();
 };
 #endif

@@ -1,7 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 #pragma once
-#include "Scene.hpp"
+#include <Scene.hpp>
 class Renderer {
  private:
  public:

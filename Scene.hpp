@@ -4,24 +4,15 @@
 
 #include <vector>
 
-#include "CallbackController.hpp"
-#include "DrawableObject.hpp"
-#include "Shader.hpp"
-class Camera;
+#include <CallbackController.hpp>
+#include <DrawableObject.hpp>
+
 class Scene {
  private:
-  // Camera *camera;
-
  public:
   std::vector<DrawableObject *> objects;
   Scene();
   ~Scene();
-  void updateCamera();
   void addObject(DrawableObject *o);
-  void render() {
-    for (DrawableObject *o : objects) {
-      o->draw();
-    }
-  }
 };
 #endif

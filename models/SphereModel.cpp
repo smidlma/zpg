@@ -1,4 +1,4 @@
-#include "SphereModel.hpp"
+#include <SphereModel.hpp>
 
 SphereModel::SphereModel() {
   numberOfTriangles = 2880;
@@ -20,7 +20,7 @@ SphereModel::SphereModel() {
                         (GLvoid *)(3 * sizeof(GL_FLOAT)));
 }
 
-void SphereModel::draw(Shader *shader, Transform *transform) {
+void SphereModel::draw(AbstractShader *shader, Transform *transform) {
   render(shader, transform);
 }
 
