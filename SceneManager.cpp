@@ -58,7 +58,7 @@ Scene *SceneManager::makeForestScene() {
   Scene *scene = new Scene();
   AbstractModel *plain = ModelFactory::makePlain();
   Transform *tr = new Transform();
-  tr->scale(40.0f);
+  tr->scale(50.0f);
   tr->translate(glm::vec3(0, 0, 0));
   scene->addObject(new DrawableObject(plain, tr, loadedS));
 

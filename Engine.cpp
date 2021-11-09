@@ -88,6 +88,7 @@ void Engine::draw() {
     // clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    CallbackController::getInstance()->updateMovement();
     Renderer::renderScene(sceneManager->getCurrentScene());
 
     glfwPollEvents();

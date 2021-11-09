@@ -3,34 +3,65 @@
 
 CallbackController* CallbackController::callbackController = nullptr;
 
+void CallbackController::updateMovement() {
+  if (keyBoard.front) {
+    for (auto c : cameras) {
+      c->toFront();
+    }
+  }
+  if (keyBoard.back) {
+    for (auto c : cameras) {
+      c->toBack();
+    }
+  }
+  if (keyBoard.left) {
+    for (auto c : cameras) {
+      c->toLeft();
+    }
+  }
+  if (keyBoard.right) {
+    for (auto c : cameras) {
+      c->toRight();
+    }
+  }
+}
+
 void CallbackController::registerCamera(Camera* camera) {
   cameras.push_back(camera);
 }
 
 void CallbackController::keyCallback(GLFWwindow* window, int key, int scancode,
                                      int action, int mods) {
-  if (key == GLFW_KEY_W) {
-    for (auto c : cameras) {
-      c->toFront();
-    }
+  if (key == GLFW_KEY_W && action == GLFW_PRESS) {
+    keyBoard.front = true;
   }
 
-  if (key == GLFW_KEY_S) {
-    for (auto c : cameras) {
-      c->toBack();
-    }
+  if (key == GLFW_KEY_W && action == GLFW_RELEASE) {
+    keyBoard.front = false;
   }
 
-  if (key == GLFW_KEY_A) {
-    for (auto c : cameras) {
-      c->toLeft();
-    }
+  if (key == GLFW_KEY_S && action == GLFW_PRESS) {
+    keyBoard.back = true;
   }
 
-  if (key == GLFW_KEY_D) {
-    for (auto c : cameras) {
-      c->toRight();
-    }
+  if (key == GLFW_KEY_S && action == GLFW_RELEASE) {
+    keyBoard.back = false;
+  }
+
+  if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+    keyBoard.left = true;
+  }
+
+  if (key == GLFW_KEY_A && action == GLFW_RELEASE) {
+    keyBoard.left = false;
+  }
+
+  if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+    keyBoard.right = true;
+  }
+
+  if (key == GLFW_KEY_D && action == GLFW_RELEASE) {
+    keyBoard.right = false;
   }
 
   if (key == GLFW_KEY_R) {

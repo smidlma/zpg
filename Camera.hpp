@@ -21,7 +21,7 @@ class Camera : public ISubject {
   float theta = glm::radians(178.0f);
   float phi = 0;
   float radius = 1;
-  const float MOVEMENT_SPEED = 0.5f;
+  const float MOVEMENT_SPEED = 0.1f;
   const float MOUSE_SENSITIVITY = 0.02f;
   
   void calculateSphereCord();

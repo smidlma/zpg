@@ -10,12 +10,20 @@
 #include <vector>
 
 #include <Camera.hpp>
+struct KeyBoard{
+  bool front = false;
+  bool back = false;
+  bool left = false;
+  bool right = false;
+};
+
 class Engine;
 class CallbackController {
  private:
   static CallbackController* callbackController;
   CallbackController();
   std::vector<Camera*> cameras;
+  KeyBoard keyBoard;
 
  public:
   static CallbackController* getInstance();
@@ -26,5 +34,6 @@ class CallbackController {
                    int mods);
   void registerCamera(Camera* camera);
   void windowSizeChangeCallback(GLFWwindow* window, int width, int height);
+  void updateMovement();
 };
 #endif

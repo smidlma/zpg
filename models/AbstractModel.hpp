@@ -27,6 +27,6 @@ class AbstractModel {
 
  public:
   void virtual draw(AbstractShader *shader, Transform *transform) = 0;
-  AbstractModel() { printf("####################### Abstract Constructor ######################## \n"); };
+  AbstractModel() {  };
 };
 #endif

@@ -1,0 +1,24 @@
+LDFLAGS  =-lopengl32 -lglfw3 -lgdi32 -lglew32
+HEADERS =-I. -Ishaders -Imodels -Ipatterns 
+
+opt=0
+
+CXX=g++
+CFLAGS=-Wall -std=c++17
+SRC=${wildcard *.cpp ./models/*.cpp ./patterns/*.cpp ./shaders/*.cpp}
+OBJ=${patsubst %.cpp,build/%.o,${SRC}}
+
+ifeq (${opt},0)
+  CFLAGS+=-g
+else
+  CFLAGS+=-O3
+endif
+
+all: ${OBJ}
+	${CXX}  ${CFLAGS} ${OBJ} -o main ${LDFLAGS}
+
+build/%.o : %.cpp
+	${CXX} -o $@ $< -c ${CFLAGS} $(HEADERS)
+
+clean :
+	rm -rf main build
