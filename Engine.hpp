@@ -18,6 +18,7 @@
 
 #include <Renderer.hpp>
 #include <SceneManager.hpp>
+#include <SOIL/SOIL.h>
 class CallbackController;
 class Engine {
  private:

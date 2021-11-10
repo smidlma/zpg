@@ -4,7 +4,7 @@ string ShaderLoader::loadFile(const char *fname) {
   ifstream file(fname);
   if (!file.is_open()) {
     cout << "Unable to open file " << fname << endl;
-    // exit(1);
+     exit(1);
   }
   std::stringstream fileData;
   fileData << file.rdbuf();

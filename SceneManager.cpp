@@ -32,6 +32,12 @@ Scene *SceneManager::makeSimpleScene() {
   Transform *tr3 = new Transform();
   Transform *tr4 = new Transform();
 
+  AbstractShader *textureTest = new ConstantShader();
+  camera->registerObserver(textureTest);
+  AbstractModel *plain = ModelFactory::makePlain();
+  Material *material = new Material({0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
+                                    new Texture("textures/test.png"));
+
   tr1->translate(glm::vec3(1.0f, 0.0f, 0.0f));
   tr2->translate(glm::vec3(-1.0f, 0.0f, 0.0f));
   tr3->translate(glm::vec3(0.0f, 0.0f, 1.0f));
@@ -40,7 +46,9 @@ Scene *SceneManager::makeSimpleScene() {
   tr2->scale(0.4f);
   tr3->scale(0.4f);
   tr4->scale(0.4f);
-
+  Transform *tr5 = new Transform();
+  tr5->scale(5.0f);
+  scene->addObject(new DrawableObject(plain, tr5, textureTest, material));
   scene->addObject(new DrawableObject(sphere, tr1, loadedS));
   scene->addObject(new DrawableObject(sphere, tr2, loadedS));
   scene->addObject(new DrawableObject(sphere, tr3, loadedS));
@@ -73,7 +81,8 @@ Scene *SceneManager::makeForestScene() {
     tran->scale(rand() % 3 + 1);
     scene->addObject(new DrawableObject(tree, tran, loadedS));
     Transform *tr2 = new Transform();
-    tr2->translate(glm::vec3(x / 2, 0, z / 2));
+
+    tr2->translate(glm::vec3(x / 2, 1, z / 2));
     scene->addObject(new DrawableObject(suzi, tr2, lambert));
   }
   return scene;

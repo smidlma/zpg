@@ -3,6 +3,7 @@
 #pragma once
 #include <AbstractModel.hpp>
 #include <sphere.h>
+
 class SphereModel : public AbstractModel {
  private:
  public:

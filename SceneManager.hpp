@@ -11,6 +11,8 @@
 #include <Transform.hpp>
 #include <AbstractShader.hpp>
 #include <LambertShader.hpp>
+#include <ConstantShader.hpp>
+#include <Material.hpp>
 #include <PhongShader.hpp>
 class SceneManager {
  private:

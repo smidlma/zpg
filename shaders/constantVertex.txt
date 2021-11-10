@@ -1,11 +1,14 @@
 #version 330
 layout(location = 0) in vec3 vp;
 layout(location = 1) in vec3 color;
-out vec4 vColor;
+layout(location = 2) in vec2 uv;
+out vec2 vColor;
+//out vec2 uv
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
+
 void main() {
   gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * vec4(vp, 1);
-  vColor = vec4(0.3, 0.3, 0.6, 1);
+  vColor = uv;
 };

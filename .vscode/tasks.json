@@ -1,56 +1,12 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "type": "cppbuild",
-      "label": "C/C++: g++.exe build active file",
-      "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
-      "args": [
-        "-g",
-        // "**.cpp",
-        // "models/**.cpp",
-        // "shaders/**.cpp",
-        "main.cpp",
-        "Engine.cpp",
-        "Scene.cpp",
-        "Camera.cpp",
-        "DrawableObject.cpp",
-        "ModelFactory.cpp",
-        "Transform.cpp",
-        "CallbackController.cpp",
-        "models/SuziModel.cpp",
-        "models/SphereModel.cpp",
-        "models/PlainModel.cpp",
-        "models/TreeModel.cpp",
-        "Renderer.cpp",
-        "SceneManager.cpp",
-        "shaders/AbstractShader.cpp",
-        "shaders/PhongShader.cpp",
-        "shaders/LambertShader.cpp",
-        "shaders/ConstantShader.cpp",
-        "shaders/ShaderLoader.cpp",
-        "patterns/ISubject.cpp",
-        "patterns/IObserver.cpp",
-        "-o",
-        "main.exe",
-        "-I.",
-        "-Ipatterns/",
-        "-Imodels/",
-        "-Ishaders/",
-        "-lopengl32",
-        "-lglfw3",
-        "-lgdi32",
-        "-lglew32"
-      ],
-      "options": {
-        "cwd": "${fileDirname}"
-      },
-      "problemMatcher": ["$gcc"],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "detail": "compiler: C:\\msys64\\mingw64\\bin\\g++.exe"
-    }
-  ]
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "make"
+        }
+    ]
 }

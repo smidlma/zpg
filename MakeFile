@@ -1,5 +1,5 @@
-LDFLAGS  =-lopengl32 -lglfw3 -lgdi32 -lglew32
-HEADERS =-I. -Ishaders -Imodels -Ipatterns 
+LDFLAGS  =-lsoil -lopengl32 -lglfw3 -lgdi32 -lglew32
+HEADERS =-I. -Ishaders -Imodels -Ipatterns
 
 opt=0
 
