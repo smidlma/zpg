@@ -9,7 +9,7 @@ void Engine::init() {
     exit(EXIT_FAILURE);
   }
 
-  this->window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
+  this->window = glfwCreateWindow(width, height, "ZPG", NULL, NULL);
   if (!window) {
     glfwTerminate();
     exit(EXIT_FAILURE);
@@ -35,8 +35,8 @@ void Engine::init() {
   glfwGetVersion(&major, &minor, &revision);
   printf("Using GLFW %i.%i.%i\n", major, minor, revision);
 
-  int width, height;
-  glfwGetFramebufferSize(window, &width, &height);
+  // int width, height;
+  // glfwGetFramebufferSize(window, &width, &height);
   glViewport(0, 0, width, height);
 
   glEnable(GL_DEPTH_TEST);

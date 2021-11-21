@@ -32,6 +32,8 @@ class Engine {
  public:
   SceneManager *sceneManager = nullptr;
   static Engine *getEngine();
+  const int width = 1200;
+  const int height = 800;
   ~Engine();
   void run();
 };

@@ -62,8 +62,10 @@ glm::mat4 Camera::getCameraLookAt() {
 }
 
 Camera::Camera() {
-  projectionMatrix =
-      glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+  projectionMatrix = glm::perspective(
+      glm::radians(45.0f),
+     (float)1200/800, 0.1f,
+      100.0f);
   viewMatrix = glm::lookAt(
       glm::vec3(10, 10, 10),  // Camera is at (4,3,-3), in World Space
       glm::vec3(0, 0, 0),     // and looks at the origin

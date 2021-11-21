@@ -1,11 +1,8 @@
 #include <AbstractShader.hpp>
-	
-AbstractShader::AbstractShader()
-{
-	
+
+AbstractShader::AbstractShader(std::vector<AbstractLight*> lights) {
+  this->lights = lights;
 }
-	
-AbstractShader::~AbstractShader()
-{
-	
-}
+AbstractShader::AbstractShader() {}
+
+AbstractShader::~AbstractShader() {}
