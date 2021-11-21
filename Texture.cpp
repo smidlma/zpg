@@ -13,10 +13,10 @@ void Texture::useTexture(AbstractShader *shader) {
 }
 
 Texture::Texture(const char *texturePath) {
-  textureID = SOIL_load_OGL_texture(
-      texturePath, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+  textureID = SOIL_load_OGL_texture(texturePath, SOIL_LOAD_RGBA,
+                                    SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 
-  printf("ID: %d \n", textureID);
+  printf("Texture ID: %d \n", textureID);
 }
 
 Texture::~Texture() {}

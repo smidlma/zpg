@@ -14,6 +14,11 @@
 #include <ConstantShader.hpp>
 #include <Material.hpp>
 #include <PhongShader.hpp>
+#include <AbstractTexture.hpp>
+#include <Texture.hpp>
+#include <CubeMap.hpp>
+#include <CubeMapShader.hpp>
+#include <SkyBox.hpp>
 class SceneManager {
  private:
   Scene *currentScene;

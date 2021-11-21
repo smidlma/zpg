@@ -38,6 +38,17 @@ Scene *SceneManager::makeSimpleScene() {
   Material *material = new Material({0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
                                     new Texture("textures/test.png"));
 
+  CubeMapShader *cms = new CubeMapShader();
+  camera->registerObserver(cms);
+  Material *m = new Material(
+      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
+      new CubeMap("textures/cubemap/posx.jpg", "textures/cubemap/negx.jpg",
+                  "textures/cubemap/posy.jpg", "textures/cubemap/negy.jpg",
+                  "textures/cubemap/posz.jpg", "textures/cubemap/negz.jpg"));
+
+  Transform *tt = new Transform();
+  scene->addObject(new DrawableObject(new SkyBox(), tt, cms, m));
+
   tr1->translate(glm::vec3(1.0f, 0.0f, 0.0f));
   tr2->translate(glm::vec3(-1.0f, 0.0f, 0.0f));
   tr3->translate(glm::vec3(0.0f, 0.0f, 1.0f));

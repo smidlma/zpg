@@ -21,4 +21,9 @@ build/%.o : %.cpp
 	${CXX} -o $@ $< -c ${CFLAGS} $(HEADERS)
 
 clean :
-	rm -rf main build
+	del build\models\*.o
+	del build\patterns\*.o
+	del build\shaders\*.o
+	del build\*.o
+	del main.exe
+	

@@ -6,13 +6,12 @@
 #include <SOIL/SOIL.h>
 
 #include <AbstractShader.hpp>
-class Texture {
+#include <AbstractTexture.hpp>
+class Texture : public AbstractTexture{
  private:
-  GLuint textureID;
-
  public:
   Texture(const char *texturePath);
   ~Texture();
-  void useTexture(AbstractShader *shader);
+  void useTexture(AbstractShader *shader) override;
 };
 #endif
