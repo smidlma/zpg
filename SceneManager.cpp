@@ -33,8 +33,8 @@ Scene *SceneManager::makeTestScene() {
   Material *material = new Material({0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
                                     new Texture("textures/test.png"));
   Transform *t = new Transform();
-  
-
+  scene->addLight(new PointLight());
+  scene->addLight(new PointLight());
   return scene;
 }
 

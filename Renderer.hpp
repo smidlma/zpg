@@ -9,12 +9,6 @@ class Renderer {
  public:
   Renderer();
   ~Renderer();
-  static void renderScene(Scene *scene) {
-    if (!scene->objects.empty()) {
-      for (DrawableObject *o : scene->objects) {
-        o->draw();
-      }
-    }
-  }
+  static void renderScene(Scene *scene);
 };
 #endif

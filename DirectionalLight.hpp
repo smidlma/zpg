@@ -5,7 +5,9 @@
 class DirectionalLight : public AbstractLight {
  private:
  public:
-  DirectionalLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
+  DirectionalLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,
+                   AbstractShader *shader);
   ~DirectionalLight();
+  void useLight(int index);
 };
 #endif

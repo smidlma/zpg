@@ -2,24 +2,25 @@
 #define SCENEMANAGER_H
 #pragma once
 
-#include <vector>
-
+#include <AbstractLight.hpp>
+#include <AbstractShader.hpp>
+#include <AbstractTexture.hpp>
 #include <CallbackController.hpp>
 #include <Camera.hpp>
-#include <ModelFactory.hpp>
-#include <Scene.hpp>
-#include <Transform.hpp>
-#include <AbstractShader.hpp>
-#include <LambertShader.hpp>
 #include <ConstantShader.hpp>
-#include <Material.hpp>
-#include <PhongShader.hpp>
-#include <AbstractTexture.hpp>
-#include <Texture.hpp>
 #include <CubeMap.hpp>
 #include <CubeMapShader.hpp>
-#include <SkyBox.hpp>
+#include <LambertShader.hpp>
+#include <Material.hpp>
+#include <ModelFactory.hpp>
 #include <ObjectLoader.hpp>
+#include <PhongShader.hpp>
+#include <PointLight.hpp>
+#include <Scene.hpp>
+#include <SkyBox.hpp>
+#include <Texture.hpp>
+#include <Transform.hpp>
+#include <vector>
 class SceneManager {
  private:
   Scene *currentScene;
