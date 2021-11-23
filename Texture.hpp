@@ -10,7 +10,7 @@
 class Texture : public AbstractTexture{
  private:
  public:
-  Texture(const char *texturePath);
+  Texture(std::string texturePath);
   ~Texture();
   void useTexture(AbstractShader *shader) override;
 };

@@ -9,9 +9,19 @@ class Material {
   glm::vec3 diffuse;
   glm::vec3 specular;
   float shininess;
+
  public:
-  AbstractTexture *texture;
-  Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess, AbstractTexture *texture);
+  std::vector<AbstractTexture *> textures;
+  Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,
+           float shininess, std::vector<AbstractTexture *> textures);
+  Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,
+           float shininess);
+  Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,
+           float shininess, AbstractTexture *texture);
   ~Material();
+
+  void useMaterial(AbstractShader *shader);
+
+  void addTexture(AbstractTexture *texture);
 };
 #endif

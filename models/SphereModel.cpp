@@ -1,7 +1,7 @@
 #include <SphereModel.hpp>
 
 SphereModel::SphereModel() {
-  numberOfTriangles = 2880;
+  indicesCount = 2880;
   GLuint VBO = 0;
   glGenBuffers(1, &VBO);  // generate the VBO
   glBindBuffer(GL_ARRAY_BUFFER, VBO);

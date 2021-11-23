@@ -6,7 +6,6 @@
 #include <SphereModel.hpp>
 #include <SuziModel.hpp>
 #include <TreeModel.hpp>
-
 class ModelFactory {
  private:
   ModelFactory();
@@ -16,7 +15,6 @@ class ModelFactory {
   static SphereModel *makeSphere() { return new SphereModel(); }
   static PlainModel *makePlain() { return new PlainModel(); }
   static TreeModel *makeTree() { return new TreeModel(); }
-
   ~ModelFactory();
 };
 #endif

@@ -1,7 +1,7 @@
 #include <TreeModel.hpp>
 
 TreeModel::TreeModel() {
-  numberOfTriangles = 92814;
+  indicesCount = 92814;
   GLuint VBO = 0;
   glGenBuffers(1, &VBO);  // generate the VBO
   glBindBuffer(GL_ARRAY_BUFFER, VBO);

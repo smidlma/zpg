@@ -12,8 +12,8 @@ void Texture::useTexture(AbstractShader *shader) {
   glUniform1i(uniformID, 0);
 }
 
-Texture::Texture(const char *texturePath) {
-  textureID = SOIL_load_OGL_texture(texturePath, SOIL_LOAD_RGBA,
+Texture::Texture(std::string texturePath) {
+  textureID = SOIL_load_OGL_texture(texturePath.c_str(), SOIL_LOAD_RGBA,
                                     SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 
   printf("Texture ID: %d \n", textureID);

@@ -1,9 +1,12 @@
 #include <DrawableObject.hpp>
 
+Transform *DrawableObject::getTransform() { return transform; }
+AbstractShader *DrawableObject::getShader() { return shader; }
+
 void DrawableObject::draw() {
   model->draw(shader, transform);
-  if (material) {
-    material->texture->useTexture(shader);
+  for (auto *m : materials) {
+    m->useMaterial(shader);
   }
 }
 
@@ -19,7 +22,16 @@ DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
   this->model = model;
   this->transform = transform;
   this->shader = shader;
-  this->material = material;
+  this->materials.push_back(material);
+}
+
+DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
+                               AbstractShader *shader,
+                               std::vector<Material *> materials) {
+  this->model = model;
+  this->transform = transform;
+  this->shader = shader;
+  this->materials = materials;
 }
 
 DrawableObject::~DrawableObject() {}

@@ -3,8 +3,9 @@
 SceneManager::SceneManager() {
   camera = new Camera();
   CallbackController::getInstance()->registerCamera(camera);
-  scenes.push_back(makeSimpleScene());
-  scenes.push_back(makeForestScene());
+  // scenes.push_back(makeSimpleScene());
+  // scenes.push_back(makeForestScene());
+  scenes.push_back(makeTestScene());
   currentScene = scenes.at(0);
 }
 
@@ -18,6 +19,23 @@ int SceneManager::setScene(int index) {
 
   currentScene = scenes.at(index);
   return true;
+}
+
+Scene *SceneManager::makeTestScene() {
+  Scene *scene = new Scene();
+  CallbackController::getInstance()->registerCamera(camera);
+
+  DrawableObject *h = ObjectLoader::load("assets/house/model.obj");
+  camera->registerObserver(h->getShader());
+  scene->addObject(h);
+
+  AbstractModel *plain = ModelFactory::makePlain();
+  Material *material = new Material({0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
+                                    new Texture("textures/test.png"));
+  Transform *t = new Transform();
+  
+
+  return scene;
 }
 
 Scene *SceneManager::makeSimpleScene() {
@@ -47,6 +65,8 @@ Scene *SceneManager::makeSimpleScene() {
                   "textures/cubemap/posz.jpg", "textures/cubemap/negz.jpg"));
 
   Transform *tt = new Transform();
+  tt->scale(2.0f);
+
   scene->addObject(new DrawableObject(new SkyBox(), tt, cms, m));
 
   tr1->translate(glm::vec3(1.0f, 0.0f, 0.0f));
@@ -59,7 +79,7 @@ Scene *SceneManager::makeSimpleScene() {
   tr4->scale(0.4f);
   Transform *tr5 = new Transform();
   tr5->scale(5.0f);
-  scene->addObject(new DrawableObject(plain, tr5, textureTest, material));
+  // scene->addObject(new DrawableObject(plain, tr5, textureTest, material));
   scene->addObject(new DrawableObject(sphere, tr1, loadedS));
   scene->addObject(new DrawableObject(sphere, tr2, loadedS));
   scene->addObject(new DrawableObject(sphere, tr3, loadedS));

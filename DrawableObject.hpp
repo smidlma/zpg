@@ -10,15 +10,18 @@ class DrawableObject {
   AbstractModel *model;
   Transform *transform;
   AbstractShader *shader;
-  Material *material = nullptr;
+  std::vector<Material *> materials;
 
  public:
   DrawableObject(AbstractModel *model, Transform *transform,
                  AbstractShader *shader);
   DrawableObject(AbstractModel *model, Transform *transform,
                  AbstractShader *shader, Material *material);
+  DrawableObject(AbstractModel *model, Transform *transform,
+                 AbstractShader *shader, std::vector<Material *> materials);
   ~DrawableObject();
   void draw();
-  Transform *getTransform() { return transform; }
+  Transform *getTransform();
+  AbstractShader *getShader();
 };
 #endif

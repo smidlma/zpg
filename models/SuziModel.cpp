@@ -1,7 +1,7 @@
 #include <SuziModel.hpp>
 
 SuziModel::SuziModel() {
-  numberOfTriangles = 2904;
+  indicesCount = 2904;
   GLuint VBO = 0;
   glGenBuffers(1, &VBO);  // generate the VBO
   glBindBuffer(GL_ARRAY_BUFFER, VBO);

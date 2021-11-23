@@ -19,6 +19,7 @@
 #include <CubeMap.hpp>
 #include <CubeMapShader.hpp>
 #include <SkyBox.hpp>
+#include <ObjectLoader.hpp>
 class SceneManager {
  private:
   Scene *currentScene;
@@ -34,5 +35,7 @@ class SceneManager {
   Scene *makeSimpleScene();
 
   Scene *makeForestScene();
+
+  Scene *makeTestScene();
 };
 #endif

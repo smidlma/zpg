@@ -36,7 +36,7 @@ void PhongShader::update(Camera *camera) {
 PhongShader::PhongShader() {
   loadShader("shaders/phongVertex.vs", "shaders/phongFragment.fs");
 }
-PhongShader::PhongShader(std::vector<AbstractLight*> lights)
+PhongShader::PhongShader(std::vector<AbstractLight *> lights)
     : AbstractShader(lights) {
   loadShader("shaders/phongVertex.vs", "shaders/phongFragment.fs");
 }

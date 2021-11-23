@@ -45,7 +45,7 @@ SkyBox::SkyBox() {
         -1.0f, -1.0f,  1.0f,
          1.0f, -1.0f,  1.0f
     };
-  numberOfTriangles = 36;
+  indicesCount = 36;
   GLuint VBO = 0;
   glGenBuffers(1, &VBO);  // generate the VBO
   glBindBuffer(GL_ARRAY_BUFFER, VBO);

@@ -1,7 +1,7 @@
 #include <PlainModel.hpp>
 
 PlainModel::PlainModel() {
-  numberOfTriangles = 6;
+  indicesCount = 6;
   // GLuint VBO = 0;
   // glGenBuffers(1, &VBO);  // generate the VBO
   // glBindBuffer(GL_ARRAY_BUFFER, VBO);

@@ -75,7 +75,7 @@ vec3 calcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 void main(void)
 {
     float specularStrength = 1;
-    //vec3 lightPosition = vec3(0.0,1.0,0.0);
+    //vec3 lightPosition = vec3(0.0,5.0,0.0);
     //vec3 lightColor = vec3( 0.385, 0.647, 0.812);
 
     //vec3 lightColor = vec3( 0.685, 0.647, 0.812);
