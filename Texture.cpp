@@ -1,15 +1,17 @@
 #include "Texture.hpp"
 
 void Texture::useTexture(AbstractShader *shader) {
-  // Bind the first texture to the first texture unit.
-  glActiveTexture(GL_TEXTURE0);
+  // printf("%d\n", textureUnitID);
+  glActiveTexture(textureUnitID);
 
   glBindTexture(GL_TEXTURE_2D, textureID);
-
-  // Set texture unit to fragment shader
   GLint uniformID =
       glGetUniformLocation(shader->getShaderProgram(), "textureUnitID");
-  glUniform1i(uniformID, 0);
+  if (uniformID == -1) {
+    fprintf(stderr, "Texture unit not found \n");
+    exit(1);
+  }
+  glUniform1i(uniformID, textureUnitID);
 }
 
 Texture::Texture(std::string texturePath) {

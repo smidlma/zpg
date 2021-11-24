@@ -162,22 +162,17 @@ DrawableObject* ObjectLoader::load(std::string fileName) {
       glBufferData(GL_ELEMENT_ARRAY_BUFFER,
                    sizeof(GLuint) * mesh->mNumFaces * 3, pIndices,
                    GL_STATIC_DRAW);
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+      glBindVertexArray(VAO);
 
-      //   glBindBuffer(GL_ARRAY_BUFFER, 0);
-      //   glBindVertexArray(VAO);
-
-      //   GLuint err = glGetError();
-      //   if (err != GL_NO_ERROR) {
-      //     std::cout << "GL ERROR: " << err << std::endl;
-      //     return;
-      //   }
+      glBindVertexArray(0);
+    
       GLsizei indicesCount = mesh->mNumFaces * 3;
-      //   std::cout << indicesCount << std::endl;
 
       delete[] pVertices;
       delete[] pIndices;
 
-      return new DrawableObject(new Model(indicesCount), new Transform(),
+      return new DrawableObject(new Model(VAO, indicesCount), new Transform(),
                                 new ConstantShader(), materials);
     }
   } else {

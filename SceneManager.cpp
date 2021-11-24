@@ -3,7 +3,7 @@
 SceneManager::SceneManager() {
   camera = new Camera();
   CallbackController::getInstance()->registerCamera(camera);
-  // scenes.push_back(makeSimpleScene());
+  scenes.push_back(makeSimpleScene());
   // scenes.push_back(makeForestScene());
   scenes.push_back(makeTestScene());
   currentScene = scenes.at(0);
@@ -25,16 +25,28 @@ Scene *SceneManager::makeTestScene() {
   Scene *scene = new Scene();
   CallbackController::getInstance()->registerCamera(camera);
 
+  AbstractShader *textureTest = new ConstantShader();
+  camera->registerObserver(textureTest);
+  AbstractModel *plain = ModelFactory::makePlain();
+  Material *material = new Material({0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
+                                    new Texture("textures/test.png"));
+
+  // Material *m = new Material({0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
+  //                            new Texture("assets/house/test.png"));
+
+  Transform *t = new Transform();
+  t->scale(50.0f);
+
   DrawableObject *h = ObjectLoader::load("assets/house/model.obj");
   camera->registerObserver(h->getShader());
   scene->addObject(h);
 
-  AbstractModel *plain = ModelFactory::makePlain();
-  Material *material = new Material({0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
-                                    new Texture("textures/test.png"));
-  Transform *t = new Transform();
-  scene->addLight(new PointLight());
-  scene->addLight(new PointLight());
+  // scene->addObject(new DrawableObject(plain, new Transform(), textureTest,
+  // m));
+  scene->addObject(new DrawableObject(plain, t, h->getShader(), material));
+
+  // scene->addLight(new PointLight());
+  // scene->addLight(new PointLight());
   return scene;
 }
 
@@ -79,6 +91,9 @@ Scene *SceneManager::makeSimpleScene() {
   tr4->scale(0.4f);
   Transform *tr5 = new Transform();
   tr5->scale(5.0f);
+  DrawableObject *h = ObjectLoader::load("assets/house/model.obj");
+  camera->registerObserver(h->getShader());
+  scene->addObject(h);
   // scene->addObject(new DrawableObject(plain, tr5, textureTest, material));
   scene->addObject(new DrawableObject(sphere, tr1, loadedS));
   scene->addObject(new DrawableObject(sphere, tr2, loadedS));

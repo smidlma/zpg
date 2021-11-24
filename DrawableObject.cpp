@@ -1,13 +1,14 @@
 #include <DrawableObject.hpp>
 
 Transform *DrawableObject::getTransform() { return transform; }
+
 AbstractShader *DrawableObject::getShader() { return shader; }
 
 void DrawableObject::draw() {
-  model->draw(shader, transform);
   for (auto *m : materials) {
     m->useMaterial(shader);
   }
+  model->draw(shader, transform);
 }
 
 DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,

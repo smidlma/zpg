@@ -2,7 +2,7 @@
 
 void Material::useMaterial(AbstractShader *shader) {
   // Use material
-
+  
   // Use Textures
   for (auto *t : textures) {
     t->useTexture(shader);

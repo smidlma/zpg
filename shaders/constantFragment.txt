@@ -3,6 +3,6 @@ out vec4 fColor;
 in vec2 vColor;
 uniform sampler2D textureUnitID;
 void main () {
-  //fColor = vec4(vColor,1.0,1.0);
+  //fColor = vec4(0.0,1.0,1.0);
   fColor = texture(textureUnitID, vColor);
 };

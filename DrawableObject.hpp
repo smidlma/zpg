@@ -20,8 +20,11 @@ class DrawableObject {
   DrawableObject(AbstractModel *model, Transform *transform,
                  AbstractShader *shader, std::vector<Material *> materials);
   ~DrawableObject();
+
   void draw();
+
   Transform *getTransform();
+  
   AbstractShader *getShader();
 };
 #endif

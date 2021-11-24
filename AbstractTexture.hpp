@@ -7,6 +7,8 @@ class AbstractTexture {
  private:
  protected:
   GLuint textureID;
+  unsigned int textureUnitID;
+  static unsigned int texturesCount;
  public:
   void virtual useTexture(AbstractShader *shader) = 0;
   AbstractTexture();

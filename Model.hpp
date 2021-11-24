@@ -13,7 +13,7 @@
 class Model : public AbstractModel {
  private:
  public:
-  Model(GLsizei indicesCount);
+  Model(GLuint VAO, GLsizei indicesCount);
   ~Model();
   void draw(AbstractShader *shader, Transform *transform) override;
 };

@@ -19,7 +19,7 @@ PlainModel::PlainModel() {
   // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float),
   //                       (GLvoid *)(3 * sizeof(GL_FLOAT)));
   // vertex buffer object (VBO)
-  
+
   GLuint VBO = 0;
   glGenBuffers(1, &VBO);  // generate the VBO
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -38,6 +38,7 @@ PlainModel::PlainModel() {
                         (GLvoid *)(3 * sizeof(float)));
   glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float),
                         (GLvoid *)(6 * sizeof(float)));
+  glBindVertexArray(0);
 }
 
 PlainModel::~PlainModel() {}
