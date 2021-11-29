@@ -34,6 +34,7 @@ class CallbackController {
                    int mods);
   void registerCamera(Camera* camera);
   void windowSizeChangeCallback(GLFWwindow* window, int width, int height);
+  void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
   void updateMovement();
 };
 #endif

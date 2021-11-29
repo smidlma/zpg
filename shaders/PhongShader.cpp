@@ -25,11 +25,11 @@ void PhongShader::update(Camera *camera) {
   }
   glUniform3fv(idViewPos, 1, &camera->eye[0]);
 
-  glUniform3fv(glGetUniformLocation(shaderProgramID, "lightPosition"), 1,
-               &l->position[0]);
+  // glUniform3fv(glGetUniformLocation(shaderProgramID, "lightPosition"), 1,
+  //              &l->position[0]);
 
-  glUniform3fv(glGetUniformLocation(shaderProgramID, "lightColor"), 1,
-               &l->color[0]);
+  // glUniform3fv(glGetUniformLocation(shaderProgramID, "lightColor"), 1,
+  //              &l->color[0]);
 
   glUseProgram(0);
 }
@@ -37,9 +37,6 @@ void PhongShader::update(Camera *camera) {
 PhongShader::PhongShader() {
   loadShader("shaders/phongVertex.vs", "shaders/phongFragment.fs");
 }
-// PhongShader::PhongShader(std::vector<AbstractLight *> lights)
-//     : AbstractShader(lights) {
-//   loadShader("shaders/phongVertex.vs", "shaders/phongFragment.fs");
-// }
+
 
 PhongShader::~PhongShader() {}

@@ -5,7 +5,7 @@ SceneManager::SceneManager() {
   CallbackController::getInstance()->registerCamera(camera);
   scenes.push_back(makeSimpleScene());
   // scenes.push_back(makeForestScene());
-  scenes.push_back(makeTestScene());
+  // scenes.push_back(makeTestScene());
   currentScene = scenes.at(0);
 }
 
@@ -40,6 +40,10 @@ Scene *SceneManager::makeTestScene() {
   DrawableObject *h = ObjectLoader::load("assets/house/model.obj");
   camera->registerObserver(h->getShader());
   scene->addObject(h);
+
+  DrawableObject *tree = ObjectLoader::load("assets/tree/tree.obj");
+  camera->registerObserver(tree->getShader());
+  scene->addObject(tree);
 
   // scene->addObject(new DrawableObject(plain, new Transform(), textureTest,
   // m));
@@ -91,14 +95,21 @@ Scene *SceneManager::makeSimpleScene() {
   tr4->scale(0.4f);
   Transform *tr5 = new Transform();
   tr5->scale(5.0f);
-  DrawableObject *h = ObjectLoader::load("assets/house/model.obj");
-  camera->registerObserver(h->getShader());
-  scene->addObject(h);
-  // scene->addObject(new DrawableObject(plain, tr5, textureTest, material));
+  // DrawableObject *h = ObjectLoader::load("assets/house/model.obj");
+  // camera->registerObserver(h->getShader());
+  // scene->addObject(h);
+  scene->addObject(new DrawableObject(plain, tr5, textureTest, material));
   scene->addObject(new DrawableObject(sphere, tr1, loadedS));
   scene->addObject(new DrawableObject(sphere, tr2, loadedS));
   scene->addObject(new DrawableObject(sphere, tr3, loadedS));
   scene->addObject(new DrawableObject(sphere, tr4, loadedS));
+
+  // Lights
+  scene->addLight(LightFactory::makePointLight(
+      {0, 0, 1}, {0, 1, 0}, {1, 0, 0}, {0, 1, 0}, 1.0f, 0.09, 0.32, loadedS));
+
+  scene->addLight(LightFactory::makePointLight(
+      {0, 1, 0}, {1, 0, 0}, {0, 1, 0}, {2, 1, 0}, 1.0f, 0.09, 0.32, loadedS));
 
   return scene;
 }

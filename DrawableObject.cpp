@@ -4,6 +4,12 @@ Transform *DrawableObject::getTransform() { return transform; }
 
 AbstractShader *DrawableObject::getShader() { return shader; }
 
+void DrawableObject::clickAction() {
+  std::cout << "clicked id:" << id << std::endl;
+}
+
+int DrawableObject::getId() { return id; }
+
 void DrawableObject::draw() {
   for (auto *m : materials) {
     m->useMaterial(shader);
@@ -13,6 +19,7 @@ void DrawableObject::draw() {
 
 DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
                                AbstractShader *shader) {
+  id = model->getId();
   this->model = model;
   this->transform = transform;
   this->shader = shader;
@@ -20,6 +27,7 @@ DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
 
 DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
                                AbstractShader *shader, Material *material) {
+  id = model->getId();
   this->model = model;
   this->transform = transform;
   this->shader = shader;
@@ -29,6 +37,7 @@ DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
 DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
                                AbstractShader *shader,
                                std::vector<Material *> materials) {
+  id = model->getId();
   this->model = model;
   this->transform = transform;
   this->shader = shader;

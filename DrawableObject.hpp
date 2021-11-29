@@ -7,12 +7,13 @@
 
 class DrawableObject {
  private:
+  int id = 0;
   AbstractModel *model;
   Transform *transform;
-  AbstractShader *shader;
   std::vector<Material *> materials;
 
  public:
+  AbstractShader *shader;
   DrawableObject(AbstractModel *model, Transform *transform,
                  AbstractShader *shader);
   DrawableObject(AbstractModel *model, Transform *transform,
@@ -22,6 +23,9 @@ class DrawableObject {
   ~DrawableObject();
 
   void draw();
+  int getId();
+
+  void clickAction();
 
   Transform *getTransform();
   

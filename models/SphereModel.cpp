@@ -1,6 +1,7 @@
 #include <SphereModel.hpp>
 
 SphereModel::SphereModel() {
+  id = 2;
   indicesCount = 2880;
   GLuint VBO = 0;
   glGenBuffers(1, &VBO);  // generate the VBO
@@ -20,7 +21,7 @@ SphereModel::SphereModel() {
                         (GLvoid *)(3 * sizeof(GL_FLOAT)));
 }
 
-void SphereModel::draw(AbstractShader *shader, Transform *transform) {
+void SphereModel::draw(AbstractShader *shader, Transform *transform) { 
   render(shader, transform);
 }
 

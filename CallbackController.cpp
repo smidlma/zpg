@@ -95,6 +95,49 @@ void CallbackController::cursorPosCallback(GLFWwindow* window, double mouseXPos,
   }
 }
 
+void CallbackController::mouseButtonCallback(GLFWwindow* window, int button,
+                                             int action, int mods) {
+  if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+    // Identifikace
+    GLbyte color[4];
+    GLfloat depth;
+    GLuint index;
+
+    double xpos, ypos;
+    // getting cursor position
+    glfwGetCursorPos(window, &xpos, &ypos);
+    GLint x = (GLint)xpos;
+    GLint y = (GLint)ypos;
+    glm::vec2 res = Engine::getEngine()->resolution;
+    int newy = res.y - 10;
+
+    glReadPixels(x, newy, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+    glReadPixels(x, newy, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+    glReadPixels(x, newy, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
+
+    printf(
+        "Clicked on pixel %d, %d, color %02hhx%02hhx%02hhx%02hhx,depth "
+        "%f,stencil index %u\n",
+        x, y, color[0], color[1], color[2], color[3], depth, index);
+
+    for (auto* o :
+         Engine::getEngine()->sceneManager->getCurrentScene()->objects) {
+      if (o->getId() == index) {
+        o->clickAction();
+      }
+    }
+
+    // Můžeme vypočíst pozici v globálním souřadném systému.
+
+    glm::vec3 screenX = glm::vec3(x, newy, depth);
+    glm::vec4 viewPort = glm::vec4(0, 0, res.x, res.y);
+    glm::vec3 pos = glm::unProject(screenX, cameras[0]->viewMatrix,
+                                   cameras[0]->projectionMatrix, viewPort);
+
+    printf("unProject [%f,%f,%f]\n", pos.x, pos.y, pos.z);
+  }
+}
+
 CallbackController* CallbackController::getInstance() {
   if (!callbackController) {
     callbackController = new CallbackController();

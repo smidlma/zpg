@@ -12,6 +12,7 @@ class Material {
 
  public:
   std::vector<AbstractTexture *> textures;
+  
   Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,
            float shininess, std::vector<AbstractTexture *> textures);
   Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,

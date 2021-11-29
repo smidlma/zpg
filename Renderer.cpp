@@ -2,15 +2,17 @@
 
 void Renderer::renderScene(Scene *scene) {
   if (!scene->objects.empty()) {
-    int posLights = 0;
-    for (auto *l : scene->lights) {
-      // printf("\n %s \n", typeid(*l).name());
-      // if(typeid( *l ).name())
-      // l->useLight();
-    }
-
+    glEnable(GL_STENCIL_TEST);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
     for (auto *o : scene->objects) {
+      
+      for (int i = 0; i < scene->lights.size(); i++) {
+        scene->lights[i]->useLight(i);
+      }
+      glStencilFunc(GL_ALWAYS, o->getId(), 0xFF);
       o->draw();
+  
+      //  glStencilFunc(GL_ALWAYS, 0, 0xFF);
     }
   }
 }

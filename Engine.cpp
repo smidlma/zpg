@@ -1,5 +1,5 @@
-#include <Engine.hpp>
 #include <CallbackController.hpp>
+#include <Engine.hpp>
 
 Engine *Engine::engine = nullptr;
 
@@ -9,7 +9,7 @@ void Engine::init() {
     exit(EXIT_FAILURE);
   }
 
-  this->window = glfwCreateWindow(width, height, "ZPG", NULL, NULL);
+  this->window = glfwCreateWindow(resolution.x, resolution.y, "ZPG", NULL, NULL);
   if (!window) {
     glfwTerminate();
     exit(EXIT_FAILURE);
@@ -37,7 +37,7 @@ void Engine::init() {
 
   // int width, height;
   // glfwGetFramebufferSize(window, &width, &height);
-  glViewport(0, 0, width, height);
+  glViewport(0, 0, resolution.x, resolution.y);
 
   glEnable(GL_DEPTH_TEST);
 
@@ -64,6 +64,12 @@ void Engine::setCallbacks() {
                        CallbackController::getInstance()->keyCallback(
                            window, key, scancode, action, mods);
                      });
+
+  glfwSetMouseButtonCallback(
+      window, [](GLFWwindow *window, int button, int action, int mods) -> void {
+        CallbackController::getInstance()->mouseButtonCallback(window, button,
+                                                               action, mods);
+      });
 }
 
 void Engine::run() {

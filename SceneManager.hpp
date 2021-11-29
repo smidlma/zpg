@@ -21,6 +21,7 @@
 #include <Texture.hpp>
 #include <Transform.hpp>
 #include <vector>
+#include <LightFactory.hpp>
 class SceneManager {
  private:
   Scene *currentScene;

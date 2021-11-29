@@ -9,6 +9,7 @@ class AbstractModel {
  protected:
   GLuint VAO = 0;
   GLsizei indicesCount = 0;
+  int id = 0;
 
   void render(AbstractShader *shader, Transform *transform) {
     glUseProgram(shader->getShaderProgram());
@@ -20,7 +21,7 @@ class AbstractModel {
     }
     glUniformMatrix4fv(idModelTransform, 1, GL_FALSE,
                        &transform->getModelMatrix()[0][0]);
-                       
+
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, indicesCount);
     glBindVertexArray(0);
@@ -29,6 +30,7 @@ class AbstractModel {
 
  public:
   void virtual draw(AbstractShader *shader, Transform *transform) = 0;
-  AbstractModel() {  };
+  int getId() { return id; };
+  AbstractModel(){};
 };
 #endif

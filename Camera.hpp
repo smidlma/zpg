@@ -10,7 +10,7 @@
 #include <glm/mat4x4.hpp>  // glm::mat4
 #include <glm/vec3.hpp>    // glm::vec3
 #include <vector>
-
+#include <Engine.hpp>
 #include <ISubject.hpp>
 
 class Camera : public ISubject {
