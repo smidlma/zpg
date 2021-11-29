@@ -7,6 +7,7 @@
 
 class DrawableObject {
  private:
+  static int idCounter;
   int id = 0;
   AbstractModel *model;
   Transform *transform;
@@ -28,7 +29,7 @@ class DrawableObject {
   void clickAction();
 
   Transform *getTransform();
-  
+
   AbstractShader *getShader();
 };
 #endif

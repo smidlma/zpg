@@ -1,4 +1,5 @@
 #include <DrawableObject.hpp>
+int DrawableObject::idCounter = 1;
 
 Transform *DrawableObject::getTransform() { return transform; }
 
@@ -19,29 +20,33 @@ void DrawableObject::draw() {
 
 DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
                                AbstractShader *shader) {
-  id = model->getId();
+  id = idCounter;
   this->model = model;
   this->transform = transform;
   this->shader = shader;
+  idCounter++;
 }
 
 DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
                                AbstractShader *shader, Material *material) {
-  id = model->getId();
+  id = idCounter;
   this->model = model;
   this->transform = transform;
   this->shader = shader;
   this->materials.push_back(material);
+  idCounter++;
 }
 
 DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
                                AbstractShader *shader,
                                std::vector<Material *> materials) {
-  id = model->getId();
+  id = idCounter;
   this->model = model;
   this->transform = transform;
   this->shader = shader;
   this->materials = materials;
+
+  idCounter++;
 }
 
 DrawableObject::~DrawableObject() {}

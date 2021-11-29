@@ -1,7 +1,7 @@
 #include <SceneManager.hpp>
 
-SceneManager::SceneManager() {
-  camera = new Camera();
+SceneManager::SceneManager(glm::vec2 resolution) {
+  camera = new Camera(resolution);
   CallbackController::getInstance()->registerCamera(camera);
   scenes.push_back(makeSimpleScene());
   // scenes.push_back(makeForestScene());
@@ -10,6 +10,14 @@ SceneManager::SceneManager() {
 }
 
 SceneManager::~SceneManager() {}
+
+void SceneManager::makeTree(glm::vec3 pos) {
+  Transform *t = new Transform();
+  t->translate(pos);
+
+  currentScene->addObject(new DrawableObject(
+      ModelFactory::makeSphere(), t, currentScene->objects[2]->getShader()));
+}
 
 Scene *SceneManager::getCurrentScene() { return currentScene; }
 int SceneManager::setScene(int index) {
@@ -23,7 +31,6 @@ int SceneManager::setScene(int index) {
 
 Scene *SceneManager::makeTestScene() {
   Scene *scene = new Scene();
-  CallbackController::getInstance()->registerCamera(camera);
 
   AbstractShader *textureTest = new ConstantShader();
   camera->registerObserver(textureTest);
@@ -56,7 +63,6 @@ Scene *SceneManager::makeTestScene() {
 
 Scene *SceneManager::makeSimpleScene() {
   Scene *scene = new Scene();
-  CallbackController::getInstance()->registerCamera(camera);
   AbstractShader *loadedS = new PhongShader();
   camera->registerObserver(loadedS);
 
@@ -98,9 +104,11 @@ Scene *SceneManager::makeSimpleScene() {
   // DrawableObject *h = ObjectLoader::load("assets/house/model.obj");
   // camera->registerObserver(h->getShader());
   // scene->addObject(h);
+  AbstractShader *ls = new LambertShader();
+  camera->registerObserver(ls);
   scene->addObject(new DrawableObject(plain, tr5, textureTest, material));
   scene->addObject(new DrawableObject(sphere, tr1, loadedS));
-  scene->addObject(new DrawableObject(sphere, tr2, loadedS));
+  scene->addObject(new DrawableObject(sphere, tr2, ls));
   scene->addObject(new DrawableObject(sphere, tr3, loadedS));
   scene->addObject(new DrawableObject(sphere, tr4, loadedS));
 

@@ -108,8 +108,9 @@ void CallbackController::mouseButtonCallback(GLFWwindow* window, int button,
     glfwGetCursorPos(window, &xpos, &ypos);
     GLint x = (GLint)xpos;
     GLint y = (GLint)ypos;
+
     glm::vec2 res = Engine::getEngine()->resolution;
-    int newy = res.y - 10;
+    int newy = res.y - y;
 
     glReadPixels(x, newy, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
     glReadPixels(x, newy, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
@@ -122,19 +123,25 @@ void CallbackController::mouseButtonCallback(GLFWwindow* window, int button,
 
     for (auto* o :
          Engine::getEngine()->sceneManager->getCurrentScene()->objects) {
+      // Identify
       if (o->getId() == index) {
+        // cameras[0]->removeObserver(o->shader);
+        // o->shader = new LambertShader();
+        // cameras[0]->registerObserver(o->shader);
+
         o->clickAction();
+        // Můžeme vypočíst pozici v globálním souřadném systému.
+
+        glm::vec3 screenX = glm::vec3(x, newy, depth);
+        glm::vec4 viewPort = glm::vec4(0, 0, res.x, res.y);
+        glm::vec3 pos = glm::unProject(screenX, cameras[0]->getCameraLookAt(),
+                                       cameras[0]->projectionMatrix, viewPort);
+
+        printf("unProject [%f,%f,%f]\n", pos.x, pos.y, pos.z);
+
+        Engine::getEngine()->sceneManager->makeTree(pos);
       }
     }
-
-    // Můžeme vypočíst pozici v globálním souřadném systému.
-
-    glm::vec3 screenX = glm::vec3(x, newy, depth);
-    glm::vec4 viewPort = glm::vec4(0, 0, res.x, res.y);
-    glm::vec3 pos = glm::unProject(screenX, cameras[0]->viewMatrix,
-                                   cameras[0]->projectionMatrix, viewPort);
-
-    printf("unProject [%f,%f,%f]\n", pos.x, pos.y, pos.z);
   }
 }
 

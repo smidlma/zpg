@@ -61,11 +61,9 @@ glm::mat4 Camera::getCameraLookAt() {
   return glm::lookAt(eye, eye + target, up);
 }
 
-Camera::Camera() {
-  projectionMatrix = glm::perspective(glm::radians(45.0f),
-                                      (float)Engine::getEngine()->resolution.x /
-                                          Engine::getEngine()->resolution.y,
-                                      0.1f, 100.0f);
+Camera::Camera(glm::vec2 resolution) {
+  projectionMatrix = glm::perspective(
+      glm::radians(45.0f), (float)resolution.x / resolution.y, 0.1f, 100.0f);
   viewMatrix = glm::lookAt(
       glm::vec3(10, 10, 10),  // Camera is at (4,3,-3), in World Space
       glm::vec3(0, 0, 0),     // and looks at the origin

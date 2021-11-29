@@ -10,7 +10,7 @@
 #include <glm/mat4x4.hpp>  // glm::mat4
 #include <glm/vec3.hpp>    // glm::vec3
 #include <vector>
-#include <Engine.hpp>
+
 #include <ISubject.hpp>
 
 class Camera : public ISubject {
@@ -30,7 +30,7 @@ class Camera : public ISubject {
   glm::vec3 eye = {0, 10, 0};
   glm::mat4 viewMatrix;
   glm::mat4 projectionMatrix;
-  Camera();
+  Camera(glm::vec2 resolution);
   ~Camera();
   glm::mat4 getCameraLookAt();
   void adjustTarget(glm::vec2 newMousePos);

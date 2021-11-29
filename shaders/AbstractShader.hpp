@@ -5,7 +5,6 @@
 
 // #include <AbstractLight.hpp>
 #include <IObserver.hpp>
-#include <vector>
 class AbstractShader : public ShaderLoader, public IObserver {
  private:
  protected:

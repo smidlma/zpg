@@ -1,7 +1,7 @@
 #include <SphereModel.hpp>
 
 SphereModel::SphereModel() {
-  id = 2;
+  id = 1;
   indicesCount = 2880;
   GLuint VBO = 0;
   glGenBuffers(1, &VBO);  // generate the VBO

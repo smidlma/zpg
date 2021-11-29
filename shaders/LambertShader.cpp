@@ -1,4 +1,5 @@
 #include <LambertShader.hpp>
+
 void LambertShader::update(Camera *camera) {
   glUseProgram(shaderProgramID);
   GLint idProjectionMatrix =

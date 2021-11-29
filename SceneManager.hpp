@@ -2,7 +2,6 @@
 #define SCENEMANAGER_H
 #pragma once
 
-#include <AbstractLight.hpp>
 #include <AbstractShader.hpp>
 #include <AbstractTexture.hpp>
 #include <CallbackController.hpp>
@@ -15,7 +14,6 @@
 #include <ModelFactory.hpp>
 #include <ObjectLoader.hpp>
 #include <PhongShader.hpp>
-#include <PointLight.hpp>
 #include <Scene.hpp>
 #include <SkyBox.hpp>
 #include <Texture.hpp>
@@ -31,8 +29,10 @@ class SceneManager {
  public:
   Scene *getCurrentScene();
   int setScene(int index);
-  SceneManager();
+  SceneManager(glm::vec2 resolution);
   ~SceneManager();
+
+  void makeTree(glm::vec3 pos);
 
   Scene *makeSimpleScene();
 

@@ -41,7 +41,7 @@ void Engine::init() {
 
   glEnable(GL_DEPTH_TEST);
 
-  sceneManager = new SceneManager();
+  sceneManager = new SceneManager(resolution);
 }
 
 void Engine::setCallbacks() {

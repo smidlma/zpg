@@ -1,7 +1,7 @@
 #include <PlainModel.hpp>
 
 PlainModel::PlainModel() {
-  id = 1;
+  id = 2;
   indicesCount = 6;
   // GLuint VBO = 0;
   // glGenBuffers(1, &VBO);  // generate the VBO
