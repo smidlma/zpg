@@ -25,7 +25,7 @@ void Engine::init() {
     exit(1);  // or any handling here
   }
 
-  // get version info
+  // get version info 
   printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
   printf("Using GLEW %s\n", glewGetString(GLEW_VERSION));
   printf("Vendor %s\n", glGetString(GL_VENDOR));

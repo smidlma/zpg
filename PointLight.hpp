@@ -12,10 +12,10 @@ class PointLight : public AbstractLight {
 
  public:
   PointLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,
-             glm::vec3 position, float constant, float linear, float quadratic,
-             AbstractShader *shader);
+             glm::vec3 position, float constant, float linear, float quadratic);
   PointLight();
   ~PointLight();
-  void useLight(int index) override;
+  void useLight(int index, AbstractShader *shader) override;
+  void update(Camera *camera) override;
 };
 #endif

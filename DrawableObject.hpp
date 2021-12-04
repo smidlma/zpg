@@ -15,8 +15,8 @@ class DrawableObject {
 
  public:
   AbstractShader *shader;
-  DrawableObject(AbstractModel *model, Transform *transform,
-                 AbstractShader *shader);
+  // DrawableObject(AbstractModel *model, Transform *transform,
+  //                AbstractShader *shader);
   DrawableObject(AbstractModel *model, Transform *transform,
                  AbstractShader *shader, Material *material);
   DrawableObject(AbstractModel *model, Transform *transform,

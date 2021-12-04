@@ -3,18 +3,18 @@
 #pragma once
 #include <AbstractShader.hpp>
 #include <glm/vec3.hpp>  // glm::vec3
-class AbstractLight {
+class AbstractLight : public IObserver{
  private:
  protected:
   glm::vec3 ambient;
   glm::vec3 diffuse;
   glm::vec3 specular;
-  AbstractShader *shader;
+
 
  public:
-  virtual void useLight(int index) = 0;
-  AbstractLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,
-                AbstractShader *shader);
+  int isOn = 1;
+  virtual void useLight(int index, AbstractShader *shader) = 0;
+  AbstractLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
   ~AbstractLight();
   AbstractLight();
 };

@@ -10,7 +10,7 @@ ObjectLoader::ObjectLoader() {}
 
 ObjectLoader::~ObjectLoader() {}
 
-DrawableObject* ObjectLoader::load(std::string fileName) {
+DrawableObject* ObjectLoader::load(std::string fileName, AbstractShader *shader, Transform *transform) {
   Assimp::Importer importer;
   unsigned int importOptions =
       aiProcess_Triangulate |
@@ -29,20 +29,7 @@ DrawableObject* ObjectLoader::load(std::string fileName) {
     printf("scene->mNumMeshes = %d\n", scene->mNumMeshes);
     printf("scene->mNumMaterials = %d\n", scene->mNumMaterials);
 
-    for (unsigned int i = 0; i < scene->mNumMaterials; i++)  // Materials
-    {
-      const aiMaterial* mat = scene->mMaterials[i];
-
-      aiString name;
-      mat->Get(AI_MATKEY_NAME, name);
-      printf("Material [%d] name %s\n", i, name.C_Str());
-
-      aiColor4D d;
-
-      glm::vec4 diffuse = glm::vec4(0.8f, 0.8f, 0.8f, 1.0f);
-      if (AI_SUCCESS == aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, &d))
-        diffuse = glm::vec4(d.r, d.g, d.b, d.a);
-    }
+    
 
     for (unsigned int i = 0; i < scene->mNumMeshes; i++)  // Objects
     {
@@ -75,7 +62,7 @@ DrawableObject* ObjectLoader::load(std::string fileName) {
 
       std::vector<Material*> materials;
       // Matrials
-      for (unsigned int i = 0; i < scene->mNumMaterials; i++) {
+      for (unsigned int i = 1; i < scene->mNumMaterials; i++) {
         aiMaterial* mat = scene->mMaterials[i];
         aiString name;
         mat->Get(AI_MATKEY_NAME, name);
@@ -172,8 +159,8 @@ DrawableObject* ObjectLoader::load(std::string fileName) {
       delete[] pVertices;
       delete[] pIndices;
 
-      return new DrawableObject(new Model(VAO, indicesCount), new Transform(),
-                                new ConstantShader(), materials);
+      return new DrawableObject(new Model(VAO, indicesCount), transform,
+                                shader, materials);
     }
   } else {
     printf("Error during parsing mesh from %s : %s \n", fileName.c_str(),

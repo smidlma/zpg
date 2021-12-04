@@ -15,7 +15,6 @@
 
 class Camera : public ISubject {
  private:
-  glm::vec3 target = {0, 0, 0};
   glm::vec3 up = {0, 1, 0};
   glm::vec2 oldMousePos = {400, 300};
   float theta = glm::radians(178.0f);
@@ -27,6 +26,7 @@ class Camera : public ISubject {
   void calculateSphereCord();
 
  public:
+  glm::vec3 target = {0, 0, 0};
   glm::vec3 eye = {0, 10, 0};
   glm::mat4 viewMatrix;
   glm::mat4 projectionMatrix;

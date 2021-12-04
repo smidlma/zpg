@@ -30,7 +30,7 @@ class Engine {
   void setCallbacks();
 
  public:
-  glm::vec2 resolution = {1200, 800}; 
+  glm::vec2 resolution = {800, 600}; 
   SceneManager *sceneManager = nullptr;
   static Engine *getEngine();
   ~Engine();

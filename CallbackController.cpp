@@ -64,10 +64,15 @@ void CallbackController::keyCallback(GLFWwindow* window, int key, int scancode,
     keyBoard.right = false;
   }
 
-  if (key == GLFW_KEY_R) {
+  if (key == GLFW_KEY_R && action == GLFW_PRESS) {
     for (auto c : cameras) {
       c->resetCameraPosition();
     }
+  }
+
+  if (key == GLFW_KEY_F && action == GLFW_PRESS) {
+    Engine::getEngine()->sceneManager->getCurrentScene()->lights[0]->isOn =
+        !Engine::getEngine()->sceneManager->getCurrentScene()->lights[0]->isOn;
   }
 
   if (key == GLFW_KEY_1) {

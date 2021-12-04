@@ -3,6 +3,7 @@
 #pragma once
 #include <AbstractTexture.hpp>
 #include <glm/vec3.hpp>  // glm::vec3
+#include <vector>
 class Material {
  private:
   glm::vec3 ambient;

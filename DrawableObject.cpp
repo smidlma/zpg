@@ -18,14 +18,14 @@ void DrawableObject::draw() {
   model->draw(shader, transform);
 }
 
-DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
-                               AbstractShader *shader) {
-  id = idCounter;
-  this->model = model;
-  this->transform = transform;
-  this->shader = shader;
-  idCounter++;
-}
+// DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
+//                                AbstractShader *shader) {
+//   id = idCounter;
+//   this->model = model;
+//   this->transform = transform;
+//   this->shader = shader;
+//   idCounter++;
+// }
 
 DrawableObject::DrawableObject(AbstractModel *model, Transform *transform,
                                AbstractShader *shader, Material *material) {
