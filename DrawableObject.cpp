@@ -1,6 +1,9 @@
 #include <DrawableObject.hpp>
 int DrawableObject::idCounter = 1;
 
+AbstractModel *DrawableObject::getModel() { return model; }
+std::vector<Material *> DrawableObject::getMaterials() { return materials; }
+
 Transform *DrawableObject::getTransform() { return transform; }
 
 AbstractShader *DrawableObject::getShader() { return shader; }

@@ -1,5 +1,5 @@
 #version 400
-#define MAX_LIGHTS 3
+#define MAX_LIGHTS 10
 
 struct Material {
   vec3 ambient;
@@ -25,14 +25,14 @@ struct Light {
 };
 
 uniform Material material;
-// uniform int lightsCount;
+uniform int lightsCount;
 uniform Light lights[MAX_LIGHTS];
 uniform vec3 viewPos;
 uniform sampler2D textureUnitID;
 uniform int isTexture;
 
-in vec4 fragmentPos;
-in vec4 fragmentNormal;
+in vec3 fragmentPos;
+in vec3 fragmentNormal;
 in vec2 texCoords;
 
 out vec4 frag_colour;
@@ -139,7 +139,7 @@ void main(void) {
   // vec3 result = lights[0].position;
 
   vec3 result = vec3(0, 0, 0);
-  for (int i = 0; i < MAX_LIGHTS; i++) {
+  for (int i = 0; i < lightsCount; i++) {
     result += calcLight(lights[i], vec3(fragmentNormal.xyz),
                         vec3(fragmentPos.xyz), vec3(viewDir.xyz), material);
   }

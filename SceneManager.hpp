@@ -20,6 +20,7 @@
 #include <Transform.hpp>
 #include <vector>
 #include <LightFactory.hpp>
+#include <MovableObject.hpp>
 class SceneManager {
  private:
   Scene *currentScene;

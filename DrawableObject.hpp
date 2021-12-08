@@ -9,12 +9,14 @@ class DrawableObject {
  private:
   static int idCounter;
   int id = 0;
-  AbstractModel *model;
+
+ protected:
   Transform *transform;
   std::vector<Material *> materials;
+  AbstractModel *model;
+  AbstractShader *shader;
 
  public:
-  AbstractShader *shader;
   // DrawableObject(AbstractModel *model, Transform *transform,
   //                AbstractShader *shader);
   DrawableObject(AbstractModel *model, Transform *transform,
@@ -23,7 +25,8 @@ class DrawableObject {
                  AbstractShader *shader, std::vector<Material *> materials);
   ~DrawableObject();
 
-  void draw();
+  virtual void draw();
+
   int getId();
 
   void clickAction();
@@ -31,5 +34,9 @@ class DrawableObject {
   Transform *getTransform();
 
   AbstractShader *getShader();
+
+  AbstractModel *getModel();
+  std::vector<Material *> getMaterials();
+
 };
 #endif

@@ -16,7 +16,7 @@ void Texture::useTexture(AbstractShader *shader) {
 
 Texture::Texture(std::string texturePath) {
   textureID = SOIL_load_OGL_texture(texturePath.c_str(), SOIL_LOAD_RGBA,
-                                    SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+                                    SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_TEXTURE_REPEATS);
 
   printf("Texture ID: %d \n", textureID);
 }

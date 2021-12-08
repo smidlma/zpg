@@ -7,6 +7,7 @@
 #include <assimp/scene.h>        // aiSceneoutputdata structure
 
 #include <DrawableObject.hpp>
+#include <MovableObject.hpp>
 #include <Material.hpp>
 #include <Texture.hpp>
 #include <Model.hpp>
@@ -20,5 +21,6 @@ class ObjectLoader {
   ObjectLoader();
   ~ObjectLoader();
   static DrawableObject* load(std::string fileName, AbstractShader *shader, Transform *transform);
+  static MovableObject* loadMovable(std::string fileName, AbstractShader *shader, Transform *transform);
 };
 #endif

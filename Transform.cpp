@@ -1,25 +1,30 @@
 #include <Transform.hpp>
 
-void Transform::translate(glm::vec3 delta) {
-  modelMatrix *=  glm::translate(glm::mat4(1.0f), delta);
+void Transform::translate(glm::vec3 delta) { position = delta; }
+
+void Transform::scale(float scaleVal) {
+  this->scaleVal = scaleVal;
+  // modelMatrix *= glm::scale(glm::mat4(1.0f), glm::vec3(scale, scale, scale));
 }
 
-void Transform::scale(float scale) {
-  modelMatrix *= glm::scale(glm::mat4(1.0f), glm::vec3(scale, scale, scale));
-}
+void Transform::rotate(glm::vec3 angel) { this->rotation = angel; }
 
-void Transform::rotate(float angel) {
-  lastAngle = angel;
-  modelMatrix *=
-      glm::rotate(glm::mat4(1.0f), (float) (glfwGetTime() * 0.1f) , glm::vec3(0.0f, 1.0f, 0.0f));
-}
+glm::mat4 Transform::getModelMatrix() {
+  glm::mat4 posMatrix = glm::translate(glm::mat4(1.0f), position);
+  glm::mat4 rotXMatrix =
+      glm::rotate(glm::mat4(1.0f), rotation.x, glm::vec3(1, 0, 0));
+  glm::mat4 rotYMatrix =
+      glm::rotate(glm::mat4(1.0f), rotation.y, glm::vec3(0, 1, 0));
+  glm::mat4 rotZMatrix =
+      glm::rotate(glm::mat4(1.0f), rotation.z, glm::vec3(1, 0, 0));
+  glm::mat4 scaleMatrix =
+      glm::scale(glm::mat4(1.0f), glm::vec3(scaleVal, scaleVal, scaleVal));
 
-glm::mat4 Transform::getModelMatrix(){
-    return modelMatrix;
+  glm::mat4 rotMatrix = rotZMatrix * rotYMatrix * rotXMatrix;
+
+  return posMatrix * rotMatrix * scaleMatrix;
 }
-void Transform::reset(){
-  modelMatrix = glm::mat4(1.0f);
-}
+void Transform::reset() { modelMatrix = glm::mat4(1.0f); }
 Transform::Transform() {}
 
 Transform::~Transform() {}
