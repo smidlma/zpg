@@ -9,7 +9,7 @@ void Texture::useTexture(AbstractShader *shader) {
       glGetUniformLocation(shader->getShaderProgram(), "textureUnitID");
   if (uniformID == -1) {
     fprintf(stderr, "Texture unit not found \n");
-    exit(1);
+    // exit(1);
   }
   glUniform1i(uniformID, textureUnitID);
 }

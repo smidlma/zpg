@@ -1,6 +1,5 @@
 #include "CubeMap.hpp"
 void CubeMap::useTexture(AbstractShader* shader) {
-  // Bind the first texture to the first texture unit.
   glActiveTexture(textureUnitID);
 
   glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);

@@ -10,6 +10,8 @@ AbstractShader *DrawableObject::getShader() { return shader; }
 
 void DrawableObject::clickAction() {
   std::cout << "clicked id:" << id << std::endl;
+  
+  
 }
 
 int DrawableObject::getId() { return id; }

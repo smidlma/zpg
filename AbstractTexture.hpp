@@ -2,6 +2,8 @@
 #define ABSTRACTTEXTURE_H
 #pragma once
 #include <GL/glew.h>
+#include <SOIL/SOIL.h>
+
 #include <AbstractShader.hpp>
 class AbstractTexture {
  private:
@@ -9,6 +11,7 @@ class AbstractTexture {
   GLuint textureID;
   unsigned int textureUnitID;
   static unsigned int texturesCount;
+
  public:
   void virtual useTexture(AbstractShader *shader) = 0;
   AbstractTexture();

@@ -2,6 +2,8 @@
 in vec3 TexCoords;
 out vec4 gl_FragColor;
 uniform samplerCube textureUnitID; //samplerCube
+uniform sampler2D normalUnitID;
+
 void main()
 {
     gl_FragColor = texture(textureUnitID, TexCoords);

@@ -9,6 +9,7 @@
 #include <DrawableObject.hpp>
 #include <MovableObject.hpp>
 #include <Material.hpp>
+#include <NormalTexture.hpp>
 #include <Texture.hpp>
 #include <Model.hpp>
 #include <PhongShader.hpp>
@@ -22,5 +23,6 @@ class ObjectLoader {
   ~ObjectLoader();
   static DrawableObject* load(std::string fileName, AbstractShader *shader, Transform *transform);
   static MovableObject* loadMovable(std::string fileName, AbstractShader *shader, Transform *transform);
+  static DrawableObject* loadNormalMap(std::string fileName, AbstractShader *shader, Transform *transform);
 };
 #endif

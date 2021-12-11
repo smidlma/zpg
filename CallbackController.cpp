@@ -133,18 +133,25 @@ void CallbackController::mouseButtonCallback(GLFWwindow* window, int button,
         // cameras[0]->removeObserver(o->shader);
         // o->shader = new LambertShader();
         // cameras[0]->registerObserver(o->shader);
-
         o->clickAction();
-        // Můžeme vypočíst pozici v globálním souřadném systému.
+        if (o->isSelectable) {
+          o->shader = new LambertShader();
+          cameras[0]->registerObserver(o->shader);
+          cameras[0]->notify(cameras[0]);
 
-        glm::vec3 screenX = glm::vec3(x, newy, depth);
-        glm::vec4 viewPort = glm::vec4(0, 0, res.x, res.y);
-        glm::vec3 pos = glm::unProject(screenX, cameras[0]->getCameraLookAt(),
-                                       cameras[0]->projectionMatrix, viewPort);
+        } else {
+          // Můžeme vypočíst pozici v globálním souřadném systému.
 
-        printf("unProject [%f,%f,%f]\n", pos.x, pos.y, pos.z);
+          glm::vec3 screenX = glm::vec3(x, newy, depth);
+          glm::vec4 viewPort = glm::vec4(0, 0, res.x, res.y);
+          glm::vec3 pos =
+              glm::unProject(screenX, cameras[0]->getCameraLookAt(),
+                             cameras[0]->projectionMatrix, viewPort);
 
-        Engine::getEngine()->sceneManager->makeTree(pos);
+          printf("unProject [%f,%f,%f]\n", pos.x, pos.y, pos.z);
+
+          Engine::getEngine()->sceneManager->makeTree(pos);
+        }
       }
     }
   }

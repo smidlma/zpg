@@ -4,6 +4,7 @@ void MovableObject::draw() {
   glm::vec3 p = parameters * A * glm::transpose(B);
   transform->translate(p);
 
+
   for (auto *m : materials) {
     m->useMaterial(shader);
   }

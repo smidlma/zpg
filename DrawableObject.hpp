@@ -14,9 +14,10 @@ class DrawableObject {
   Transform *transform;
   std::vector<Material *> materials;
   AbstractModel *model;
-  AbstractShader *shader;
 
  public:
+  AbstractShader *shader;
+  bool isSelectable = true;
   // DrawableObject(AbstractModel *model, Transform *transform,
   //                AbstractShader *shader);
   DrawableObject(AbstractModel *model, Transform *transform,

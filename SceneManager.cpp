@@ -3,10 +3,11 @@
 SceneManager::SceneManager(glm::vec2 resolution) {
   camera = new Camera(resolution);
   CallbackController::getInstance()->registerCamera(camera);
-  scenes.push_back(makeSimpleScene());
+  //   scenes.push_back(makeSimpleScene());
   // scenes.push_back(makeForestScene());
   scenes.push_back(makeTestScene());
   currentScene = scenes.at(0);
+  
 }
 
 SceneManager::~SceneManager() {}
@@ -51,6 +52,7 @@ Scene *SceneManager::makeTestScene() {
   // Terain
   DrawableObject *teren = ObjectLoader::load("assets/terain/teren.obj",
                                              phongShader, new Transform());
+  teren->isSelectable = false;
   scene->addObject(teren);
 
   // 4 Spheres
@@ -96,13 +98,13 @@ Scene *SceneManager::makeTestScene() {
   scene->addObject(house1);
   scene->addObject(house2);
 
-  MovableObject *zombie = ObjectLoader::loadMovable("assets/zombie/zombie.obj", phongShader, new Transform());
-  zombie->setControlPoints(glm::mat4x3({0, 0, 0}, {10, 0, 5}, {10, 0, -5}, {0, 0, 20}));
-  zombie->setSpeed(0.007f);
+  // Add movable obj
+  MovableObject *zombie = ObjectLoader::loadMovable(
+      "assets/zombie/zombie.obj", phongShader, new Transform());
+  zombie->setControlPoints(
+      glm::mat4x3({0, 0, -20}, {10, 0, 0}, {-10, 0, 0}, {0, 0, 20}));
+  zombie->setSpeed(0.003f);
   scene->addObject(zombie);
-
-
-
 
   // Lights
   AbstractLight *spot = LightFactory::makeSpotLight(
@@ -114,6 +116,14 @@ Scene *SceneManager::makeTestScene() {
       {0.1, 0.1, 0.1}, {1, 1, 1}, {1, 1, 1}, {0, 5, 0}, 1.0f, 0.09f, 0.032f));
   scene->addLight(LightFactory::makeDirectionalLight(
       {0.1, 0.1, 0.1}, {0.1, 0.1, 0.1}, {0.1, 0.1, 0.1}));
+
+  // Normal map obj
+  AbstractShader *normalShader = new NormalShader();
+  camera->registerObserver(normalShader);
+  Transform *boxT = new Transform();
+  boxT->translate({0, 1, 0});
+  scene->addObject(
+      ObjectLoader::load("./assets/Box/model.obj", normalShader, boxT));
 
   return scene;
 }
@@ -207,6 +217,7 @@ Scene *SceneManager::makeSimpleScene() {
   scene->addLight(LightFactory::makeDirectionalLight(
       {0.1, 0.1, 0.1}, {0.1, 0.1, 0.1}, {0.1, 0.1, 0.1}));
 
+  // Add movable objects
   MovableObject *movableObj =
       new MovableObject(sphere, new Transform(), loadedS, spM);
   movableObj->setControlPoints(
