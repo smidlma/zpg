@@ -1,42 +1,14 @@
 #include <PhongShader.hpp>
 
 void PhongShader::update(Camera *camera) {
-  glUseProgram(shaderProgramID);
-  GLint idProjectionMatrix =
-      glGetUniformLocation(shaderProgramID, "projectionMatrix");
-  if (idProjectionMatrix == -1) {
-    fprintf(stderr, "ProjectionMatrix not found \n");
-    exit(1);
-  }
-  glUniformMatrix4fv(idProjectionMatrix, 1, GL_FALSE,
-                     &camera->projectionMatrix[0][0]);
-
-  GLint idViewMatrix = glGetUniformLocation(shaderProgramID, "viewMatrix");
-  if (idViewMatrix == -1) {
-    fprintf(stderr, "ViewMatrix not found \n");
-    exit(1);
-  }
-  glUniformMatrix4fv(idViewMatrix, 1, GL_FALSE,
-                     &camera->getCameraLookAt()[0][0]);
-
-  GLint idViewPos = glGetUniformLocation(shaderProgramID, "viewPos");
-  if (idViewPos == -1) {
-    fprintf(stderr, "ViewPos not found \n");
-  }
-  glUniform3fv(idViewPos, 1, &camera->eye[0]);
-
-  // glUniform3fv(glGetUniformLocation(shaderProgramID, "lightPosition"), 1,
-  //              &l->position[0]);
-
-  // glUniform3fv(glGetUniformLocation(shaderProgramID, "lightColor"), 1,
-  //              &l->color[0]);
-
-  glUseProgram(0);
+  use();
+  setMat4("projectionMatrix", camera->projectionMatrix);
+  setMat4("viewMatrix", camera->getCameraLookAt());
+  setVec3("viewPos", camera->eye);
 }
 
 PhongShader::PhongShader() {
   loadShader("shaders/phongVertex.vs", "shaders/phongFragment.fs");
 }
-
 
 PhongShader::~PhongShader() {}

@@ -1,36 +1,30 @@
 #include "DirectionalLight.hpp"
 void DirectionalLight::update(Camera *camera) {}
 void DirectionalLight::useLight(int index, AbstractShader *shader) {
-  glUseProgram(shader->getShaderProgram());
-
   char temp[256];
   sprintf(temp, "lights[%d].isOn", index);
-  glUniform1i(glGetUniformLocation(shader->getShaderProgram(), temp), isOn);
+  shader->setInt(temp, isOn);
 
   sprintf(temp, "lights[%d].type", index);
-  glUniform1i(glGetUniformLocation(shader->getShaderProgram(), temp), 3);
+  shader->setInt(temp, type);
 
   sprintf(temp, "lights[%d].ambient", index);
-  glUniform3fv(glGetUniformLocation(shader->getShaderProgram(), temp), 1,
-               &ambient[0]);
+  shader->setVec3(temp, ambient); shader->setVec3(temp, ambient);
 
   sprintf(temp, "lights[%d].diffuse", index);
-  glUniform3fv(glGetUniformLocation(shader->getShaderProgram(), temp), 1,
-               &diffuse[0]);
+  shader->setVec3(temp, diffuse);
 
   sprintf(temp, "lights[%d].specular", index);
-  glUniform3fv(glGetUniformLocation(shader->getShaderProgram(), temp), 1,
-               &specular[0]);
+  shader->setVec3(temp, specular);
 
   sprintf(temp, "lights[%d].direction", index);
-  glUniform3fv(glGetUniformLocation(shader->getShaderProgram(), temp), 1,
-               &direction[0]);
-
-  glUseProgram(0);
+  shader->setVec3(temp, direction);
 }
 
 DirectionalLight::DirectionalLight(glm::vec3 ambient, glm::vec3 diffuse,
                                    glm::vec3 specular)
-    : AbstractLight(ambient, diffuse, specular) {}
+    : AbstractLight(ambient, diffuse, specular) {
+  type = 3;
+}
 
 DirectionalLight::~DirectionalLight() {}

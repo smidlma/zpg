@@ -2,20 +2,11 @@
 
 void Material::useMaterial(AbstractShader *shader) {
   // Use material
-  glUseProgram(shader->getShaderProgram());
-  glUniform3fv(
-      glGetUniformLocation(shader->getShaderProgram(), "material.ambient"), 1,
-      &ambient[0]);
-  glUniform3fv(
-      glGetUniformLocation(shader->getShaderProgram(), "material.diffuse"), 1,
-      &diffuse[0]);
-  glUniform3fv(
-      glGetUniformLocation(shader->getShaderProgram(), "material.specular"), 1,
-      &specular[0]);
-  glUniform1f(
-      glGetUniformLocation(shader->getShaderProgram(), "material.shininess"),
-      shininess);
-  glUseProgram(0);
+  shader->setVec3("material.ambient", ambient);
+  shader->setVec3("material.diffuse", diffuse);
+  shader->setVec3("material.specular", specular);
+  shader->setFloat("material.shininess", shininess);
+
   // Use Textures
   for (auto *t : textures) {
     t->useTexture(shader);

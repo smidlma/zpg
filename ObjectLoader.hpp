@@ -7,12 +7,12 @@
 #include <assimp/scene.h>        // aiSceneoutputdata structure
 
 #include <DrawableObject.hpp>
-#include <MovableObject.hpp>
 #include <Material.hpp>
-#include <NormalTexture.hpp>
-#include <Texture.hpp>
 #include <Model.hpp>
+#include <MovableObject.hpp>
+#include <NormalTexture.hpp>
 #include <PhongShader.hpp>
+#include <Texture.hpp>
 #include <assimp/Importer.hpp>  // C++ importerinterface
 #include <glm/vec4.hpp>
 
@@ -21,8 +21,10 @@ class ObjectLoader {
  public:
   ObjectLoader();
   ~ObjectLoader();
-  static DrawableObject* load(std::string fileName, AbstractShader *shader, Transform *transform);
-  static MovableObject* loadMovable(std::string fileName, AbstractShader *shader, Transform *transform);
-  static DrawableObject* loadNormalMap(std::string fileName, AbstractShader *shader, Transform *transform);
+  static DrawableObject *load(std::string fileName, AbstractShader *shader,
+                              Transform *transform);
+  static MovableObject *loadMovable(std::string fileName,
+                                    AbstractShader *shader,
+                                    Transform *transform);
 };
 #endif

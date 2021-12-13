@@ -15,8 +15,6 @@ class MovableObject : public DrawableObject {
 
  public:
   MovableObject(AbstractModel *model, Transform *transform,
-                AbstractShader *shader, std::vector<Material *> materials);
-  MovableObject(AbstractModel *model, Transform *transform,
                 AbstractShader *shader, Material *material);
 
   void setControlPoints(glm::mat4x3 controlPoints);

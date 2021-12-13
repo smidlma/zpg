@@ -12,18 +12,16 @@ class DrawableObject {
 
  protected:
   Transform *transform;
-  std::vector<Material *> materials;
   AbstractModel *model;
 
  public:
+  Material *material;
   AbstractShader *shader;
   bool isSelectable = true;
-  // DrawableObject(AbstractModel *model, Transform *transform,
-  //                AbstractShader *shader);
+
   DrawableObject(AbstractModel *model, Transform *transform,
                  AbstractShader *shader, Material *material);
-  DrawableObject(AbstractModel *model, Transform *transform,
-                 AbstractShader *shader, std::vector<Material *> materials);
+
   ~DrawableObject();
 
   virtual void draw();
@@ -37,7 +35,7 @@ class DrawableObject {
   AbstractShader *getShader();
 
   AbstractModel *getModel();
-  std::vector<Material *> getMaterials();
 
+  Material *getMaterial();
 };
 #endif

@@ -4,7 +4,7 @@ string ShaderLoader::loadFile(const char *fname) {
   ifstream file(fname);
   if (!file.is_open()) {
     cout << "Unable to open file " << fname << endl;
-     exit(1);
+    exit(1);
   }
   std::stringstream fileData;
   fileData << file.rdbuf();
@@ -72,21 +72,6 @@ GLuint ShaderLoader::loadShader(const char *vertexFile,
     exit(EXIT_FAILURE);
   } else
     printf(" Shader:Load OK \n");
-
-//   GLint idlightPosition = glGetUniformLocation(shaderProgramID, "viewPos");
-//   if (idlightPosition == -1) {
-//     fprintf(stderr, "light Pos not found \n");
-//     exit(1);
-//   }
-//   GLint idlightColor = glGetUniformLocation(shaderProgramID, "viewPos");
-//   if (idlightColor == -1) {
-//     fprintf(stderr, "color not found \n");
-//     exit(1);
-//   }
-//   glm::vec3 pos = {0, 0, 0};
-//   glm::vec3 color = {0.9, 0, 0};
-//   glUniform3fv(idlightPosition, 1, &pos[0]);
-//   glUniform3fv(idlightColor, 1, &color[0]);
 
   return shaderProgramID;
 }

@@ -7,16 +7,14 @@ void Renderer::renderScene(Scene *scene) {
 
     for (auto *o : scene->objects) {
       glStencilFunc(GL_ALWAYS, o->getId(), 0xFF);
-      
-      glUseProgram(o->getShader()->getShaderProgram());
-      glUniform1i(glGetUniformLocation(o->getShader()->getShaderProgram(),
-                                       "lightsCount"),
-                  scene->lights.size());
-      glUseProgram(0);
+
+      o->getShader()->use();
+      o->getShader()->setInt("lightsCount", scene->lights.size());
 
       for (int i = 0; i < scene->lights.size(); i++) {
         scene->lights[i]->useLight(i, o->getShader());
       }
+
       o->draw();
     }
   }

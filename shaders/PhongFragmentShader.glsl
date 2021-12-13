@@ -50,6 +50,7 @@ void main () {
 		specular = calcSpec(reflectDir, cameraDirection, 32)  * vec4(1.0, 1.0, 1.0, 1.0);
 	 }
     // frag_colour = ambient + diffuse + specular;	 
-	frag_colour = texture(normalUnitID,uvc);
+	frag_colour = texture(textureUnitID,uvc);
+	// frag_colour= vec4(frag_colour.xy,1,1);
 }
 

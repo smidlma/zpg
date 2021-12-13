@@ -10,77 +10,6 @@ ObjectLoader::ObjectLoader() {}
 
 ObjectLoader::~ObjectLoader() {}
 
-static DrawableObject* loadNormalMap(std::string fileName,
-                                     AbstractShader* shader,
-                                     Transform* transform) {
-  int count = 0;
-  Assimp::Importer importer;
-  unsigned int importOptions =
-      aiProcess_Triangulate |
-      aiProcess_OptimizeMeshes           // sloučení malých plošek
-      | aiProcess_JoinIdenticalVertices  // NUTNÉ jinak hodně duplikuje
-      | aiProcess_Triangulate            // prevod vsech ploch na trojuhelniky
-      | aiProcess_CalcTangentSpace;      // vypocet tangenty, nutny pro spravne
-                                         // pouziti normalove mapy
-  const aiScene* scene = importer.ReadFile(fileName, importOptions);
-
-  vector<float> data;
-  if (scene) {
-    aiMesh* mesh = scene->mMeshes[0];
-    count = mesh->mNumFaces * 3;
-    for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
-      for (unsigned int j = 0; j < 3; j++) {
-        data.push_back(mesh->mVertices[mesh->mFaces[i].mIndices[j]].x);
-        data.push_back(mesh->mVertices[mesh->mFaces[i].mIndices[j]].y);
-        data.push_back(mesh->mVertices[mesh->mFaces[i].mIndices[j]].z);
-        data.push_back(mesh->mNormals[mesh->mFaces[i].mIndices[j]].x);
-        data.push_back(mesh->mNormals[mesh->mFaces[i].mIndices[j]].y);
-        data.push_back(mesh->mNormals[mesh->mFaces[i].mIndices[j]].z);
-        data.push_back(mesh->mTextureCoords[0][mesh->mFaces[i].mIndices[j]].x);
-        data.push_back(mesh->mTextureCoords[0][mesh->mFaces[i].mIndices[j]].y);
-        data.push_back(mesh->mTangents[mesh->mFaces[i].mIndices[j]].x);
-        data.push_back(mesh->mTangents[mesh->mFaces[i].mIndices[j]].y);
-        data.push_back(mesh->mTangents[mesh->mFaces[i].mIndices[j]].z);
-      }
-    }
-  }
-
-  // Vertex Array Object (VAO)
-  GLuint VBO = 0;
-  glGenBuffers(1, &VBO);  // generate the VBO
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), &data[0],
-               GL_STATIC_DRAW);
-
-  GLuint VAO = 0;
-  glGenVertexArrays(1, &VAO);  // generate the VAO
-  glBindVertexArray(VAO);      // bind the VAO
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-  // enable vertex attributes
-  glEnableVertexAttribArray(0);
-  glEnableVertexAttribArray(1);
-  glEnableVertexAttribArray(2);
-  glEnableVertexAttribArray(3);
-
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float),
-                        (GLvoid*)0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float),
-                        (GLvoid*)(sizeof(float) * 3));
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 11 * sizeof(float),
-                        (GLvoid*)(sizeof(float) * 6));
-  glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float),
-                        (GLvoid*)(sizeof(float) * 8));
-
-  std::vector<AbstractTexture*> textures;
-  textures.push_back(new Texture("albedo.png"));
-  textures.push_back(new Texture("normalmap.png"));
-  Material* material =
-      new Material({0.1, 0.1, 0.1}, {0.7, 0.7, 0.7}, {1, 1, 1}, 64, textures);
-
-  return nullptr;
-}
-
 MovableObject* ObjectLoader::loadMovable(std::string fileName,
                                          AbstractShader* shader,
                                          Transform* transform) {
@@ -131,7 +60,8 @@ MovableObject* ObjectLoader::loadMovable(std::string fileName,
         }
       }
 
-      std::vector<Material*> materials;
+      // Only one material will be loaded
+      Material* material;
       // Matrials
       for (unsigned int i = 1; i < scene->mNumMaterials; i++) {
         aiMaterial* mat = scene->mMaterials[i];
@@ -174,10 +104,8 @@ MovableObject* ObjectLoader::loadMovable(std::string fileName,
           textures.push_back(new Texture(fullPath));
         }
 
-        Material* material =
-            new Material({amb.r, amb.g, amb.b}, {dif.r, dif.g, dif.b},
-                         {spe.r, spe.g, spe.b}, shininess, textures);
-        materials.push_back(material);
+        material = new Material({amb.r, amb.g, amb.b}, {dif.r, dif.g, dif.b},
+                                {spe.r, spe.g, spe.b}, shininess, textures);
       }
 
       unsigned int* pIndices = nullptr;
@@ -231,7 +159,7 @@ MovableObject* ObjectLoader::loadMovable(std::string fileName,
       delete[] pIndices;
 
       return new MovableObject(new Model(VAO, indicesCount), transform, shader,
-                               materials);
+                               material);
     }
   } else {
     printf("Error during parsing mesh from %s : %s \n", fileName.c_str(),
@@ -289,7 +217,7 @@ DrawableObject* ObjectLoader::load(std::string fileName, AbstractShader* shader,
         }
       }
 
-      std::vector<Material*> materials;
+      Material* material;
       // Matrials
       for (unsigned int i = 1; i < scene->mNumMaterials; i++) {
         aiMaterial* mat = scene->mMaterials[i];
@@ -332,17 +260,14 @@ DrawableObject* ObjectLoader::load(std::string fileName, AbstractShader* shader,
           textures.push_back(new Texture(fullPath));
         }
         if (textures.empty()) {
-          textures.push_back(new Texture("./assets/Box/albedo.png"));
-          textures.push_back(new NormalTexture("./assets/Box/normalmap.png"));
-          Material* material =
-              new Material({0.1,0.1,0.1}, {dif.r, dif.g, dif.b},
-                           {1, 1, 1}, 64, textures);
-          materials.push_back(material);
+          // textures.push_back(new Texture("./assets/Box/albedo.png"));
+          // textures.push_back(new NormalTexture("./assets/Box/normalmap.png"));
+          // material = new Material({0.1, 0.1, 0.1}, {dif.r, dif.g, dif.b},
+          //                         {1, 1, 1}, 64, textures);
+
         } else {
-          Material* material =
-              new Material({amb.r, amb.g, amb.b}, {dif.r, dif.g, dif.b},
-                           {spe.r, spe.g, spe.b}, shininess, textures);
-          materials.push_back(material);
+          material = new Material({amb.r, amb.g, amb.b}, {dif.r, dif.g, dif.b},
+                                  {spe.r, spe.g, spe.b}, shininess, textures);
         }
       }
 
@@ -397,7 +322,7 @@ DrawableObject* ObjectLoader::load(std::string fileName, AbstractShader* shader,
       delete[] pIndices;
 
       return new DrawableObject(new Model(VAO, indicesCount), transform, shader,
-                                materials);
+                                material);
     }
   } else {
     printf("Error during parsing mesh from %s : %s \n", fileName.c_str(),

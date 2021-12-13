@@ -7,7 +7,6 @@ SceneManager::SceneManager(glm::vec2 resolution) {
   // scenes.push_back(makeForestScene());
   scenes.push_back(makeTestScene());
   currentScene = scenes.at(0);
-  
 }
 
 SceneManager::~SceneManager() {}
@@ -38,93 +37,103 @@ Scene *SceneManager::makeTestScene() {
   AbstractShader *phongShader = new PhongShader();
   camera->registerObserver(phongShader);
   AbstractShader *cubemapShader = new CubeMapShader();
-  camera->registerObserver(cubemapShader);
+    camera->registerObserver(cubemapShader);
 
   // Create skybox
-  Material *skyboxMaterial = new Material(
-      {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
-      new CubeMap("assets/skybox/right.jpg", "assets/skybox/left.jpg",
-                  "assets/skybox/top.jpg", "assets/skybox/bottom.jpg",
-                  "assets/skybox/front.jpg", "assets/skybox/back.jpg"));
-  scene->addObject(new DrawableObject(new SkyBox(), new Transform,
-                                      cubemapShader, skyboxMaterial));
+    Material *skyboxMaterial = new Material(
+        {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 2.0,
+        new CubeMap("assets/skybox/right.jpg", "assets/skybox/left.jpg",
+                    "assets/skybox/top.jpg", "assets/skybox/bottom.jpg",
+                    "assets/skybox/front.jpg", "assets/skybox/back.jpg"));
+    scene->addObject(new DrawableObject(new SkyBox(), new Transform,
+                                        cubemapShader, skyboxMaterial));
 
   // Terain
-  DrawableObject *teren = ObjectLoader::load("assets/terain/teren.obj",
-                                             phongShader, new Transform());
-  teren->isSelectable = false;
-  scene->addObject(teren);
+    DrawableObject *teren = ObjectLoader::load("assets/terain/teren.obj",
+                                               phongShader, new Transform());
+    teren->isSelectable = false;
+    scene->addObject(teren);
 
   // 4 Spheres
-  AbstractModel *sphere = ModelFactory::makeSphere();
-  Transform *sphereTr1 = new Transform();
-  Transform *sphereTr2 = new Transform();
-  Transform *sphereTr3 = new Transform();
-  Transform *sphereTr4 = new Transform();
+  //   AbstractModel *sphere = ModelFactory::makeSphere();
+  //   Transform *sphereTr1 = new Transform();
+  //   Transform *sphereTr2 = new Transform();
+  //   Transform *sphereTr3 = new Transform();
+  //   Transform *sphereTr4 = new Transform();
 
-  sphereTr1->translate(glm::vec3(1.0f, 0.5f, 0.0f));
-  sphereTr2->translate(glm::vec3(-1.0f, 0.5f, 0.0f));
-  sphereTr3->translate(glm::vec3(0.0f, 0.5f, 1.0f));
-  sphereTr4->translate(glm::vec3(0.0f, 0.5f, -1.0f));
-  sphereTr1->scale(0.4f);
-  sphereTr2->scale(0.4f);
-  sphereTr3->scale(0.4f);
-  sphereTr4->scale(0.4f);
+  //   sphereTr1->translate(glm::vec3(1.0f, 0.5f, 0.0f));
+  //   sphereTr2->translate(glm::vec3(-1.0f, 0.5f, 0.0f));
+  //   sphereTr3->translate(glm::vec3(0.0f, 0.5f, 1.0f));
+  //   sphereTr4->translate(glm::vec3(0.0f, 0.5f, -1.0f));
+  //   sphereTr1->scale(0.4f);
+  //   sphereTr2->scale(0.4f);
+  //   sphereTr3->scale(0.4f);
+  //   sphereTr4->scale(0.4f);
 
-  Material *spereMaterial =
-      new Material({0.1, 0.1, 0.1}, {0.1, 1, 0.6}, {1, 1, 1}, 124);
+  //   Material *spereMaterial =
+  //       new Material({0.1, 0.1, 0.1}, {0.1, 1, 0.6}, {1, 1, 1}, 124);
 
-  scene->addObject(
-      new DrawableObject(sphere, sphereTr1, phongShader, spereMaterial));
-  scene->addObject(
-      new DrawableObject(sphere, sphereTr2, phongShader, spereMaterial));
-  scene->addObject(
-      new DrawableObject(sphere, sphereTr3, phongShader, spereMaterial));
-  scene->addObject(
-      new DrawableObject(sphere, sphereTr4, phongShader, spereMaterial));
+  //   scene->addObject(
+  //       new DrawableObject(sphere, sphereTr1, phongShader, spereMaterial));
+  //   scene->addObject(
+  //       new DrawableObject(sphere, sphereTr2, phongShader, spereMaterial));
+  //   scene->addObject(
+  //       new DrawableObject(sphere, sphereTr3, phongShader, spereMaterial));
+  //   scene->addObject(
+  //       new DrawableObject(sphere, sphereTr4, phongShader, spereMaterial));
 
   // 2 houses
-  Transform *houseTr1 = new Transform();
-  Transform *houseTr2 = new Transform();
-  houseTr1->translate({-10, 0, 0});
-  houseTr2->translate({10, 0, 0});
+  // Transform *houseTr1 = new Transform();
+  //   Transform *houseTr2 = new Transform();
+  // houseTr1->translate({-10, 0, 0});
+  //   houseTr2->translate({10, 0, 0});
 
-  DrawableObject *house1 =
-      ObjectLoader::load("assets/house/model.obj", phongShader, houseTr1);
+  //   DrawableObject *house1 =
+  //       ObjectLoader::load("assets/house/model.obj", phongShader, houseTr1);
 
-  DrawableObject *house2 = new DrawableObject(
-      house1->getModel(), houseTr2, phongShader, house1->getMaterials());
+  //   DrawableObject *house2 = new DrawableObject(
+  //       house1->getModel(), houseTr2, phongShader, house1->getMaterials());
 
-  scene->addObject(house1);
-  scene->addObject(house2);
+  //   scene->addObject(house1);
+  //   scene->addObject(house2);
 
   // Add movable obj
-  MovableObject *zombie = ObjectLoader::loadMovable(
-      "assets/zombie/zombie.obj", phongShader, new Transform());
-  zombie->setControlPoints(
-      glm::mat4x3({0, 0, -20}, {10, 0, 0}, {-10, 0, 0}, {0, 0, 20}));
-  zombie->setSpeed(0.003f);
-  scene->addObject(zombie);
+  //   MovableObject *zombie = ObjectLoader::loadMovable(
+  //       "assets/zombie/zombie.obj", phongShader, new Transform());
+  //   zombie->setControlPoints(
+  //       glm::mat4x3({0, 0, -20}, {10, 0, 0}, {-10, 0, 0}, {0, 0, 20}));
+  //   zombie->setSpeed(0.003f);
+  //   scene->addObject(zombie);
 
   // Lights
-  AbstractLight *spot = LightFactory::makeSpotLight(
-      {0.1, 0.1, 0.1}, {1, 1, 1}, {1, 1, 1}, {0, 1, 0}, {0, 0, 0});
-  camera->registerObserver(spot);
-  scene->addLight(spot);
+    AbstractLight *spot = LightFactory::makeSpotLight(
+        {0.1, 0.1, 0.1}, {1, 1, 1}, {1, 1, 1}, {0, 1, 0}, {0, 0, 0});
+    camera->registerObserver(spot);
+    scene->addLight(spot);
 
-  scene->addLight(LightFactory::makePointLight(
-      {0.1, 0.1, 0.1}, {1, 1, 1}, {1, 1, 1}, {0, 5, 0}, 1.0f, 0.09f, 0.032f));
-  scene->addLight(LightFactory::makeDirectionalLight(
-      {0.1, 0.1, 0.1}, {0.1, 0.1, 0.1}, {0.1, 0.1, 0.1}));
+    scene->addLight(LightFactory::makePointLight(
+        {0.1, 0.1, 0.1}, {1, 1, 1}, {1, 1, 1}, {0, 5, 0}, 1.0f, 0.09f,
+        0.032f));
+    scene->addLight(LightFactory::makeDirectionalLight(
+        {0.1, 0.1, 0.1}, {0.1, 0.1, 0.1}, {0.1, 0.1, 0.1}));
 
   // Normal map obj
   AbstractShader *normalShader = new NormalShader();
   camera->registerObserver(normalShader);
-  Transform *boxT = new Transform();
-  boxT->translate({0, 1, 0});
-  scene->addObject(
-      ObjectLoader::load("./assets/Box/model.obj", normalShader, boxT));
 
+  // Transform *boxT = new Transform();
+  // boxT->translate({0, 1, 0});
+  // DrawableObject *model =
+  //     ObjectLoader::load("./assets/Box/model.obj", normalShader, boxT);
+  //         scene->addObject(model);
+
+  DrawableObject *house1 = ObjectLoader::load("assets/house/model.obj",
+                                              normalShader, new Transform());
+  DrawableObject *tree =
+      ObjectLoader::load("assets/tree/tree.obj", normalShader, new Transform());
+
+  scene->addObject(tree);
+  scene->addObject(house1);
   return scene;
 }
 

@@ -1,43 +1,34 @@
 #include "SpotLight.hpp"
 
 void SpotLight::useLight(int index, AbstractShader *shader) {
-  glUseProgram(shader->getShaderProgram());
-
   char temp[256];
+  
   sprintf(temp, "lights[%d].isOn", index);
-  glUniform1i(glGetUniformLocation(shader->getShaderProgram(), temp), isOn);
+  shader->setInt(temp, isOn);
 
   sprintf(temp, "lights[%d].type", index);
-  glUniform1i(glGetUniformLocation(shader->getShaderProgram(), temp), 2);
+  shader->setInt(temp, type);
 
   sprintf(temp, "lights[%d].ambient", index);
-  glUniform3fv(glGetUniformLocation(shader->getShaderProgram(), temp), 1,
-               &ambient[0]);
+  shader->setVec3(temp, ambient);
 
-  // std::cout << temp << std::endl;
   sprintf(temp, "lights[%d].diffuse", index);
-  glUniform3fv(glGetUniformLocation(shader->getShaderProgram(), temp), 1,
-               &diffuse[0]);
+  shader->setVec3(temp, diffuse);
 
   sprintf(temp, "lights[%d].specular", index);
-  glUniform3fv(glGetUniformLocation(shader->getShaderProgram(), temp), 1,
-               &specular[0]);
+  shader->setVec3(temp, specular);
 
   sprintf(temp, "lights[%d].position", index);
-  glUniform3fv(glGetUniformLocation(shader->getShaderProgram(), temp), 1,
-               &position[0]);
+  shader->setVec3(temp, position);
 
   sprintf(temp, "lights[%d].direction", index);
-  glUniform3fv(glGetUniformLocation(shader->getShaderProgram(), temp), 1,
-               &direction[0]);
+  shader->setVec3(temp, direction);
 
   sprintf(temp, "lights[%d].cutOff", index);
-  glUniform1f(glGetUniformLocation(shader->getShaderProgram(), temp), cutOff);
+  shader->setFloat(temp, cutOff);
 
   sprintf(temp, "lights[%d].outerCutOff", index);
-  glUniform1f(glGetUniformLocation(shader->getShaderProgram(), temp),
-              outerCutOff);
-  glUseProgram(0);
+  shader->setFloat(temp, outerCutOff);
 }
 void SpotLight::update(Camera *camera) {
   position = camera->eye;
@@ -46,7 +37,9 @@ void SpotLight::update(Camera *camera) {
 
 SpotLight::SpotLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular,
                      glm::vec3 position, glm::vec3 direction)
-    : AbstractLight(ambient, diffuse, specular) {}
+    : AbstractLight(ambient, diffuse, specular) {
+  type = 2;
+}
 
 SpotLight::SpotLight() {}
 
